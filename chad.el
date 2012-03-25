@@ -43,6 +43,8 @@
       (append '(("\\.rst$" . rst-mode)
                 ("\\.rest$" . rst-mode)) auto-mode-alist))
 
+(global-set-key (kbd "C-x C-z") 'slime-eval-buffer)
+
 ;; Clojure repl syntax highlighting (http://gist.github.com/337280)
 ;;; all code in this function lifted from the clojure-mode function
 ;;; from clojure-mode.el
@@ -97,3 +99,10 @@
                                              read-only
                                              font-lock-face
                                              intangible))))))
+
+
+;; Set up Marmalade as a package repository
+(require 'package)
+(add-to-list 'package-archives
+             '("marmalade" . 
+               "http://marmalade-repo.org/packages/") t)
