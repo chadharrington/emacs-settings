@@ -19,23 +19,22 @@
 
 (column-number-mode 1)
 (normal-erase-is-backspace-mode 1)
+(global-auto-revert-mode t)
 
-(setq c-mode-hook
-    (function (lambda ()
-                (setq indent-tabs-mode nil)
-                (setq c-indent-level 4))))
-(setq objc-mode-hook
-    (function (lambda ()
-                (setq indent-tabs-mode nil)
-                (setq c-indent-level 4))))
-(setq c++-mode-hook
-    (function (lambda ()
-                (setq indent-tabs-mode nil)
-                (setq c-indent-level 4))))
+(defun my-c-common-mode-hook ()
+  (c-set-style "linux")
+  (setq c-basic-offset 2)
+  (setq indent-tabs-mode nil)
+  (c-toggle-electric-state 1)
+  (c-toggle-auto-newline 1)
+  (c-toggle-hungry-state 1)
+  (c-subword-mode 1))
+(add-hook 'c-mode-common-hook 'my-c-common-mode-hook)
 
-(setq whitespace-style '(trailing lines space-before-tab
-                          indentation space-after-tab)
+(setq whitespace-style
+      '(trailing lines space-before-tab indentation space-after-tab)
       whitespace-line-column 80)
+
 
 ;; rst.el
 (require 'rst)
