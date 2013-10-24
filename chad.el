@@ -23,12 +23,12 @@
 
 (defun my-c-common-mode-hook ()
   (c-set-style "linux")
-  (setq c-basic-offset 2)
+  (setq c-basic-offset 4)
   (setq indent-tabs-mode nil)
   (c-toggle-electric-state 1)
   (c-toggle-auto-newline 1)
   (c-toggle-hungry-state 1)
-  (c-subword-mode 1))
+  (subword-mode 1))
 (add-hook 'c-mode-common-hook 'my-c-common-mode-hook)
 
 (setq whitespace-style
