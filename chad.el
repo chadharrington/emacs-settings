@@ -36,23 +36,40 @@
       whitespace-line-column 80)
 
 
+;; cider.el
+;; Enable eldoc in Clojure buffers:
+(add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
+;; Hide the *nrepl-connection* and *nrepl-server* buffers 
+(setq nrepl-hide-special-buffers t)
+;; Prevent the auto-display of the REPL buffer in a separate window after connection is established:
+(setq cider-repl-pop-to-buffer-on-connect nil)
+;; Stop the error buffer from popping up while working in buffers other than the REPL:
+(setq cider-popup-stacktraces nil)
+;; Enable error buffer popping also in the REPL:
+(setq cider-repl-popup-stacktraces t)
+;; Auto-select the error buffer when it's displayed:
+(setq cider-auto-select-error-buffer t)
+;; Change the separator from space to hyphen
+(setq nrepl-buffer-name-separator "-")
+;; Show nREPL port
+(setq nrepl-buffer-name-show-port t)
+;; Make C-c C-z switch to the CIDER REPL buffer in the current window:
+(setq cider-repl-display-in-current-window t)
+;;Limit the number of items of each collection the printer will print to 100:
+(setq cider-repl-print-length 100) ; the default is nil, no limit
+
+
+;; rainbow-delimiters.el
+(require 'rainbow-delimiters)
+;; Enables rainbow-delimiters-mode in Emacs Lisp buffers
+(add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode)
+;; Enables rainbow-delimiters-mode in Clojure buffers.
+(add-hook 'clojure-mode-hook 'rainbow-delimiters-mode)
+;; enables rainbow-delimiters-mode in other Lisp mode buffers.
+(add-hook 'lisp-mode-hook 'rainbow-delimiters-mode)
+
 ;; rst.el
 (require 'rst)
 (setq auto-mode-alist
       (append '(("\\.rst$" . rst-mode)
                 ("\\.rest$" . rst-mode)) auto-mode-alist))
-
-;; Configure nrepl.el
-; Enable eldoc in clojure buffers
-(add-hook 'nrepl-interaction-mode-hook
-          'nrepl-turn-on-eldoc-mode)
-; Stop the error buffer from popping up while working in the REPL buffer
-(setq nrepl-popup-stacktraces nil)
-; Make C-c C-z switch to the *nrepl* buffer in the current window:
-(add-to-list 'same-window-buffer-names "*nrepl*") 
-
-
-
-
-
-
