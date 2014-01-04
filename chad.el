@@ -12,14 +12,16 @@
 (setq mac-command-modifier 'meta)
 (setq mac-option-modifier nil)
 
+(winner-mode 1)
+(column-number-mode 1)
+(normal-erase-is-backspace-mode 1)
+(global-auto-revert-mode t)
+
 ;; use UTF-8
 (set-terminal-coding-system 'utf-8)
 (set-keyboard-coding-system 'utf-8)
 (prefer-coding-system 'utf-8)
 
-(column-number-mode 1)
-(normal-erase-is-backspace-mode 1)
-(global-auto-revert-mode t)
 
 (defun my-c-common-mode-hook ()
   (c-set-style "linux")
