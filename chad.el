@@ -43,9 +43,11 @@
 (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
 ;; Hide the *nrepl-connection* and *nrepl-server* buffers 
 (setq nrepl-hide-special-buffers t)
-;; Prevent the auto-display of the REPL buffer in a separate window after connection is established:
+;; Prevent the auto-display of the REPL buffer in a separate window
+;; after connection is established:
 (setq cider-repl-pop-to-buffer-on-connect nil)
-;; Stop the error buffer from popping up while working in buffers other than the REPL:
+;; Stop the error buffer from popping up while working in buffers
+;; other than the REPL:
 (setq cider-popup-stacktraces nil)
 ;; Enable error buffer popping also in the REPL:
 (setq cider-repl-popup-stacktraces t)
@@ -57,7 +59,7 @@
 (setq nrepl-buffer-name-show-port t)
 ;; Make C-c C-z switch to the CIDER REPL buffer in the current window:
 (setq cider-repl-display-in-current-window t)
-;;Limit the number of items of each collection the printer will print to 100:
+;;Limit the number of items of each collection the printer will print to 100----------
 (setq cider-repl-print-length 100) ; the default is nil, no limit
 
 
@@ -75,3 +77,8 @@
 (setq auto-mode-alist
       (append '(("\\.rst$" . rst-mode)
                 ("\\.rest$" . rst-mode)) auto-mode-alist))
+
+;; Workgroups setup
+(require 'workgroups2)
+(setq wg-default-session-file "~/.emacs.d/.emacs_workgroups")
+(workgroups-mode 1)        ; put this one at the bottom of .emacs

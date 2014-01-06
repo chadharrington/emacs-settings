@@ -11,7 +11,7 @@
 ;; Add in your own as you wish:
 (defvar my-packages '(starter-kit starter-kit-lisp starter-kit-eshell
                                   starter-kit-js starter-kit-bindings
-                                  cider rainbow-delimiters rst)
+                                  cider rainbow-delimiters rst workgroups2)
   "A list of packages to ensure are installed at launch.")
 
 (dolist (p my-packages)
