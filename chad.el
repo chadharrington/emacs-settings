@@ -78,7 +78,5 @@
       (append '(("\\.rst$" . rst-mode)
                 ("\\.rest$" . rst-mode)) auto-mode-alist))
 
-;; Workgroups setup
-(require 'workgroups2)
-(setq wg-default-session-file "~/.emacs.d/.emacs_workgroups")
-(workgroups-mode 1)        ; put this one at the bottom of .emacs
+;; switch-window.el
+(global-set-key (kbd "C-x o") 'switch-window)
