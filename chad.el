@@ -46,6 +46,8 @@
 ;; Prevent the auto-display of the REPL buffer in a separate window
 ;; after connection is established:
 (setq cider-repl-pop-to-buffer-on-connect nil)
+;; Set up paredit in repl
+(add-hook 'cider-repl-mode-hook 'paredit-mode)
 ;; Stop the error buffer from popping up while working in buffers
 ;; other than the REPL:
 (setq cider-popup-stacktraces nil)
