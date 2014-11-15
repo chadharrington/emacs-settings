@@ -10,7 +10,7 @@
 
 (defvar my-packages '(starter-kit starter-kit-lisp starter-kit-eshell
                                   starter-kit-js starter-kit-bindings
-                                  ace-jump-mode coffee-mode company
+                                  ace-jump-mode coffee-mode 
                                   rainbow-delimiters rst switch-window)
   "A list of packages to ensure are installed at launch.")
 
@@ -84,12 +84,6 @@
 
 ;; ace-jump mode
 (define-key global-map (kbd "<C-return>") 'ace-jump-mode)
-
-;; company-mode
-(require 'company)
-(add-hook 'after-init-hook 'global-company-mode)
-(require 'company-etags)
-(add-to-list 'company-etags-modes 'clojure-mode)
 
 ;; Eval buffer
 (add-hook 'clojure-mode-hook
