@@ -9,7 +9,7 @@
   (package-refresh-contents))
 
 (defvar my-packages
-  '(ace-jump-mode cider coffee-mode rainbow-delimiters rst
+  '(ace-jump-mode cider coffee-mode ido-ubiquitous rainbow-delimiters rst
                   starter-kit starter-kit-bindings starter-kit-eshell
                   starter-kit-js starter-kit-lisp switch-window
                   whitespace)
@@ -120,3 +120,12 @@
                   (find-tag (first (last (split-string
                                           (symbol-name (symbol-at-point)) "/")))
                             next-p)))))
+
+;; Cider stuff
+(setq nrepl-hide-special-buffers t)
+(setq cider-prompt-save-file-on-load nil)
+(add-hook 'cider-repl-mode-hook 'subword-mode)
+(add-hook 'cider-repl-mode-hook 'paredit-mode)
+
+;; ido stuff
+(setq ido-everywhere t)
