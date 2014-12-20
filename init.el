@@ -1,18 +1,21 @@
 (require 'package)
+(package-initialize)
 (add-to-list 'package-archives
              '("marmalade" . "http://marmalade-repo.org/packages/") t)
 (add-to-list 'package-archives
-             '("melpa" . "http://melpa.milkbox.net/packages/") t)
-(package-initialize)
+             '("melpa" . "http://melpa.org/packages/") t)
 
 (when (not package-archive-contents)
   (package-refresh-contents))
 
-(defvar my-packages '(starter-kit starter-kit-lisp starter-kit-eshell
-                                  starter-kit-js starter-kit-bindings
-                                  ace-jump-mode coffee-mode 
-                                  rainbow-delimiters rst switch-window)
+(defvar my-packages
+  '(ace-jump-mode cider coffee-mode rainbow-delimiters rst
+                  starter-kit starter-kit-bindings starter-kit-eshell
+                  starter-kit-js starter-kit-lisp switch-window
+                  whitespace)
   "A list of packages to ensure are installed at launch.")
+
+;; (add-to-list 'package-pinned-packages '(cider . "melpa-stable") t)
 
 (dolist (p my-packages)
   (when (not (package-installed-p p))
@@ -37,6 +40,16 @@
 (setq mac-command-modifier 'meta)
 (setq mac-option-modifier nil)
 
+;; Whitespace stuff
+(setq whitespace-style
+      '(empty face indentation::space lines-tail space-before-tab::space
+              space-after-tab::space tabs trailing))
+(setq whitespace-line-column 80)
+(setq whitespace-action
+      '(auto-cleanup cleanup warn-read-only))
+(global-whitespace-mode 1)
+
+
 (winner-mode 1)
 (column-number-mode 1)
 (normal-erase-is-backspace-mode 1)
@@ -57,20 +70,16 @@
   (subword-mode 1))
 (add-hook 'c-mode-common-hook 'my-c-common-mode-hook)
 
-(setq whitespace-style
-      '(trailing lines space-before-tab indentation space-after-tab)
-      whitespace-line-column 80)
-
 (setq inferior-lisp-program "lein repl")
 (add-hook 'inferior-lisp-mode-hook 'paredit-mode)
 
 ;; rainbow-delimiters.el
 (require 'rainbow-delimiters)
-;; Enables rainbow-delimiters-mode in Emacs Lisp buffers
+;; Enable rainbow-delimiters-mode in Emacs Lisp buffers
 (add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode)
-;; Enables rainbow-delimiters-mode in Clojure buffers.
+;; Enable rainbow-delimiters-mode in Clojure buffers.
 (add-hook 'clojure-mode-hook 'rainbow-delimiters-mode)
-;; enables rainbow-delimiters-mode in other Lisp mode buffers.
+;; Enable rainbow-delimiters-mode in other Lisp mode buffers.
 (add-hook 'lisp-mode-hook 'rainbow-delimiters-mode)
 
 ;; rst.el
