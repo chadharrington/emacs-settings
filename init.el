@@ -65,10 +65,15 @@
   (setq c-basic-offset 4)
   (setq indent-tabs-mode nil)
   (c-toggle-electric-state 1)
-  (c-toggle-auto-newline 1)
+  (c-toggle-auto-newline -1)
   (c-toggle-hungry-state 1)
   (subword-mode 1))
 (add-hook 'c-mode-common-hook 'my-c-common-mode-hook)
+
+;; XCode uses 2 spaces for indent, so I do the same in objc-mode
+(defun my-obj-mode-hook ()
+  (setq c-basic-offset 2))
+(add-hook 'objc-mode-hook 'my-obj-mode-hook)
 
 (setq inferior-lisp-program "lein repl")
 (add-hook 'inferior-lisp-mode-hook 'paredit-mode)
