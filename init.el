@@ -34,6 +34,9 @@
 (setq browse-url-browser-function 'browse-url-default-macosx-browser
       delete-by-moving-to-trash t)
 (add-to-list 'ido-ignore-files "\\.DS_Store")
+(when (memq window-system '(mac ns))
+  (exec-path-from-shell-initialize))
+
 ;; Set meta to be the command key
 (setq mac-option-key-is-meta nil)
 (setq mac-command-key-is-meta t)
