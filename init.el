@@ -9,7 +9,8 @@
   (package-refresh-contents))
 
 (defvar my-packages
-  '(ace-jump-mode cider coffee-mode ido-ubiquitous rainbow-delimiters rst
+  '(ace-jump-mode cider coffee-mode exec-path-from-shell ido-ubiquitous
+                  rainbow-delimiters rst
                   starter-kit starter-kit-bindings starter-kit-eshell
                   starter-kit-js starter-kit-lisp switch-window
                   whitespace)
