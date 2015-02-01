@@ -10,7 +10,7 @@
 
 (defvar my-packages
   '(ace-jump-mode cider coffee-mode exec-path-from-shell ido-ubiquitous
-                  rainbow-delimiters rst
+                  inf-clojure rainbow-delimiters rst
                   starter-kit starter-kit-bindings starter-kit-eshell
                   starter-kit-js starter-kit-lisp switch-window
                   whitespace)
@@ -129,6 +129,9 @@
                   (find-tag (first (last (split-string
                                           (symbol-name (symbol-at-point)) "/")))
                             next-p)))))
+
+;; inf-clojure stuff
+(add-hook 'clojure-mode-hook #'inf-clojure-minor-mode)
 
 ;; Cider stuff
 (setq nrepl-hide-special-buffers t)
