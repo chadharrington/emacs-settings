@@ -10,13 +10,13 @@
 
 (defvar my-packages
   '(ace-jump-mode cider coffee-mode exec-path-from-shell ido-ubiquitous
-                  inf-clojure rainbow-delimiters rst
+                  magit rainbow-delimiters rst
                   starter-kit starter-kit-bindings starter-kit-eshell
                   starter-kit-js starter-kit-lisp switch-window
                   whitespace)
   "A list of packages to ensure are installed at launch.")
 
-;; (add-to-list 'package-pinned-packages '(cider . "melpa-stable") t)
+(add-to-list 'package-pinned-packages '(cider . "melpa-stable") t)
 
 (dolist (p my-packages)
   (when (not (package-installed-p p))
