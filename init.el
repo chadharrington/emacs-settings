@@ -35,8 +35,6 @@
 (setq browse-url-browser-function 'browse-url-default-macosx-browser
       delete-by-moving-to-trash t)
 (add-to-list 'ido-ignore-files "\\.DS_Store")
-(when (memq window-system '(mac ns))
-  (exec-path-from-shell-initialize))
 
 ;; Set meta to be the command key
 (setq mac-option-key-is-meta nil)
@@ -104,36 +102,36 @@
 (define-key global-map (kbd "<C-return>") 'ace-jump-mode)
 
 ;; Eval buffer
-(add-hook 'clojure-mode-hook
-          '(lambda ()
-             (define-key clojure-mode-map
-               "\C-c\C-k"
-               '(lambda ()
-                  (interactive)
-                  (let ((current-point (point)))
-                    (goto-char (point-min))
-                    (let ((ns-idx (re-search-forward
-                                   clojure-namespace-name-regex nil t)))
-                      (when ns-idx
-                        (goto-char ns-idx)
-                        (let ((sym (symbol-at-point)))
-                          (message (format "Loading %s ..." sym))
-                          (lisp-eval-string
-                           (format "(require '%s :reload)" sym))
-                          (lisp-eval-string (format "(in-ns '%s)" sym)))))
-                    (goto-char current-point))))
-             (define-key clojure-mode-map
-               "\M-."
-               '(lambda (next-p)
-                  (interactive "P")
-                  (find-tag (first (last (split-string
-                                          (symbol-name (symbol-at-point)) "/")))
-                            next-p)))))
+;; (add-hook 'clojure-mode-hook
+;;           '(lambda ()
+;;              (define-key clojure-mode-map
+;;                "\C-c\C-k"
+;;                '(lambda ()
+;;                   (interactive)
+;;                   (let ((current-point (point)))
+;;                     (goto-char (point-min))
+;;                     (let ((ns-idx (re-search-forward
+;;                                    clojure-namespace-name-regex nil t)))
+;;                       (when ns-idx
+;;                         (goto-char ns-idx)
+;;                         (let ((sym (symbol-at-point)))
+;;                           (message (format "Loading %s ..." sym))
+;;                           (lisp-eval-string
+;;                            (format "(require '%s :reload)" sym))
+;;                           (lisp-eval-string (format "(in-ns '%s)" sym)))))
+;;                     (goto-char current-point))))
+;;              (define-key clojure-mode-map
+;;                "\M-."
+;;                '(lambda (next-p)
+;;                   (interactive "P")
+;;                   (find-tag (first (last (split-string
+;;                                           (symbol-name (symbol-at-point)) "/")))
+;;                             next-p)))))
 
-;; inf-clojure stuff
-(add-hook 'clojure-mode-hook #'inf-clojure-minor-mode)
 
 ;; Cider stuff
+(add-hook 'cider-mode-hook #'eldoc-mode)
+;;(setq nrepl-log-messages t)
 (setq nrepl-hide-special-buffers t)
 (setq cider-prompt-save-file-on-load nil)
 (add-hook 'cider-repl-mode-hook 'subword-mode)
@@ -141,3 +139,17 @@
 
 ;; ido stuff
 (setq ido-everywhere t)
+
+
+;; Explicitly initialize packages
+(setq package-enable-at-startup nil)
+(package-initialize)
+
+;; Stuff that needs to happen after packages are initialized
+(when (memq window-system '(mac ns))
+  (exec-path-from-shell-copy-env "TRAVELPORT_ORIGIN_APPLICATION")
+  (exec-path-from-shell-copy-env "TRAVELPORT_TARGET_BRANCH")
+  (exec-path-from-shell-copy-env "TRAVELPORT_REMOTE_HOST")
+  (exec-path-from-shell-copy-env "TRAVELPORT_USERNAME")
+  (exec-path-from-shell-copy-env "TRAVELPORT_PASSWORD")
+  (exec-path-from-shell-initialize))
