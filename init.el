@@ -16,7 +16,7 @@
                   whitespace)
   "A list of packages to ensure are installed at launch.")
 
-(add-to-list 'package-pinned-packages '(cider . "melpa-stable") t)
+;; (add-to-list 'package-pinned-packages '(cider . "melpa-stable") t)
 
 (dolist (p my-packages)
   (when (not (package-installed-p p))
@@ -152,4 +152,9 @@
   (exec-path-from-shell-copy-env "TRAVELPORT_REMOTE_HOST")
   (exec-path-from-shell-copy-env "TRAVELPORT_USERNAME")
   (exec-path-from-shell-copy-env "TRAVELPORT_PASSWORD")
+  (exec-path-from-shell-copy-env "DEVELOPER_AERO_API_KEY")
+  (exec-path-from-shell-copy-env "MAPQUEST_API_KEY")
   (exec-path-from-shell-initialize))
+
+;; Turn off magit warning message
+(setq magit-last-seen-setup-instructions "1.4.0")
