@@ -8,15 +8,17 @@
 (when (not package-archive-contents)
   (package-refresh-contents))
 
+;; Add homebrew-installed packages to load-path
+(let ((default-directory "/usr/local/share/emacs/site-lisp/"))
+  (normal-top-level-add-subdirs-to-load-path))
+
 (defvar my-packages
-  '(ace-jump-mode cider coffee-mode exec-path-from-shell ido-ubiquitous
+  '(ace-jump-mode coffee-mode exec-path-from-shell ido-ubiquitous
                   magit rainbow-delimiters rst
                   starter-kit starter-kit-bindings starter-kit-eshell
                   starter-kit-js starter-kit-lisp switch-window
                   whitespace)
   "A list of packages to ensure are installed at launch.")
-
-;; (add-to-list 'package-pinned-packages '(cider . "melpa-stable") t)
 
 (dolist (p my-packages)
   (when (not (package-installed-p p))
@@ -88,6 +90,9 @@
 (add-hook 'clojure-mode-hook 'rainbow-delimiters-mode)
 ;; Enable rainbow-delimiters-mode in other Lisp mode buffers.
 (add-hook 'lisp-mode-hook 'rainbow-delimiters-mode)
+
+;; cider
+(require 'cider)
 
 ;; rst.el
 (require 'rst)
