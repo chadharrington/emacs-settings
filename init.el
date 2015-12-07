@@ -110,6 +110,7 @@
 (add-hook 'cider-mode-hook #'eldoc-mode)
 (setq cider-repl-pop-to-buffer-on-connect nil)
 (setq nrepl-hide-special-buffers t)
+(setq nrepl-log-messages nil)
 (setq cider-prompt-save-file-on-load nil)
 (add-hook 'cider-repl-mode-hook 'subword-mode)
 (add-hook 'cider-repl-mode-hook 'paredit-mode)
