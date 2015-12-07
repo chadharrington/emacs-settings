@@ -9,8 +9,8 @@
   (package-refresh-contents))
 
 (defvar my-packages
-  '(ace-jump-mode cider coffee-mode exec-path-from-shell ido-ubiquitous
-                  magit rainbow-delimiters rst
+  '(ace-jump-mode cider coffee-mode exec-path-from-shell
+                  ido-ubiquitous magit rainbow-delimiters rst
                   starter-kit starter-kit-bindings starter-kit-eshell
                   starter-kit-js starter-kit-lisp switch-window
                   whitespace)
@@ -101,37 +101,9 @@
 ;; ace-jump mode
 (define-key global-map (kbd "<C-return>") 'ace-jump-mode)
 
-;; Eval buffer
-;; (add-hook 'clojure-mode-hook
-;;           '(lambda ()
-;;              (define-key clojure-mode-map
-;;                "\C-c\C-k"
-;;                '(lambda ()
-;;                   (interactive)
-;;                   (let ((current-point (point)))
-;;                     (goto-char (point-min))
-;;                     (let ((ns-idx (re-search-forward
-;;                                    clojure-namespace-name-regex nil t)))
-;;                       (when ns-idx
-;;                         (goto-char ns-idx)
-;;                         (let ((sym (symbol-at-point)))
-;;                           (message (format "Loading %s ..." sym))
-;;                           (lisp-eval-string
-;;                            (format "(require '%s :reload)" sym))
-;;                           (lisp-eval-string (format "(in-ns '%s)" sym)))))
-;;                     (goto-char current-point))))
-;;              (define-key clojure-mode-map
-;;                "\M-."
-;;                '(lambda (next-p)
-;;                   (interactive "P")
-;;                   (find-tag (first (last (split-string
-;;                                           (symbol-name (symbol-at-point)) "/")))
-;;                             next-p)))))
-
-
 ;; Cider stuff
 (add-hook 'cider-mode-hook #'eldoc-mode)
-;;(setq nrepl-log-messages t)
+(setq cider-repl-pop-to-buffer-on-connect nil)
 (setq nrepl-hide-special-buffers t)
 (setq cider-prompt-save-file-on-load nil)
 (add-hook 'cider-repl-mode-hook 'subword-mode)
@@ -140,6 +112,11 @@
 ;; ido stuff
 (setq ido-everywhere t)
 
+;;;;;;; Manually-managed packages ;;;;;;
+;; dockerfile-mode
+(add-to-list 'load-path "/Users/chad/.emacs.d/vendor/dockerfile-mode/")
+(require 'dockerfile-mode)
+(add-to-list 'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode))
 
 ;; Explicitly initialize packages
 (setq package-enable-at-startup nil)
@@ -158,3 +135,17 @@
 
 ;; Turn off magit warning message
 (setq magit-last-seen-setup-instructions "1.4.0")
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(cider-cljs-repl
+   "(do (require 'cljs.repl.node) (cemerick.piggieback/cljs-repl (cljs.repl.node/repl-env)))"))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
