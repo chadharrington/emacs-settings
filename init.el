@@ -13,8 +13,8 @@
   (normal-top-level-add-subdirs-to-load-path))
 
 (defvar my-packages
-  '(ace-jump-mode cider coffee-mode exec-path-from-shell
-                  ido-ubiquitous magit rainbow-delimiters rst
+  '(ace-jump-mode cargo cider dockerfile-mode exec-path-from-shell
+                  ido-ubiquitous magit rainbow-delimiters rst rust
                   starter-kit starter-kit-bindings starter-kit-eshell
                   starter-kit-js starter-kit-lisp switch-window
                   whitespace)
@@ -23,7 +23,6 @@
 (dolist (p my-packages)
   (when (not (package-installed-p p))
     (package-install p)))
-
 
 ;; Make the cursor a black bar
 (setq default-cursor-type 'bar)
@@ -53,11 +52,16 @@
       '(auto-cleanup cleanup warn-read-only))
 (global-whitespace-mode 1)
 
-
 (winner-mode 1)
 (column-number-mode 1)
 (normal-erase-is-backspace-mode 1)
 (global-auto-revert-mode t)
+
+;; Indentation
+(defun indent-buffer ()
+  "Indent current buffer according to major mode."
+  (interactive)
+  (indent-region (point-min) (point-max)))
 
 ;; use UTF-8
 (set-terminal-coding-system 'utf-8)
@@ -75,9 +79,9 @@
 (add-hook 'c-mode-common-hook 'my-c-common-mode-hook)
 
 ;; XCode uses 2 spaces for indent, so I do the same in objc-mode
-(defun my-obj-mode-hook ()
+(defun my-obj-c-mode-hook ()
   (setq c-basic-offset 2))
-(add-hook 'objc-mode-hook 'my-obj-mode-hook)
+(add-hook 'objc-mode-hook 'my-obj-c-mode-hook)
 
 (setq inferior-lisp-program "lein repl")
 (add-hook 'inferior-lisp-mode-hook 'paredit-mode)
@@ -118,11 +122,13 @@
 ;; ido stuff
 (setq ido-everywhere t)
 
+;; Rust stuff
+(add-hook 'rust-mode-hook 'cargo-minor-mode)
+(add-hook 'rust-mode-hook
+          (lambda ()
+            (local-set-key (kbd "C-c <tab>") #'rust-format-buffer)))
+
 ;;;;;;; Manually-managed packages ;;;;;;
-;; dockerfile-mode
-(add-to-list 'load-path "/Users/chad/.emacs.d/vendor/dockerfile-mode/")
-(require 'dockerfile-mode)
-(add-to-list 'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode))
 
 ;; Explicitly initialize packages
 (setq package-enable-at-startup nil)
