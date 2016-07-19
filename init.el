@@ -14,7 +14,7 @@
 
 (defvar my-packages
   '(ace-jump-mode cargo cider dockerfile-mode exec-path-from-shell
-                  ido-ubiquitous magit rainbow-delimiters rst rust
+                  ido-ubiquitous magit rainbow-delimiters rst
                   starter-kit starter-kit-bindings starter-kit-eshell
                   starter-kit-js starter-kit-lisp switch-window
                   whitespace)
@@ -143,6 +143,14 @@
   (exec-path-from-shell-copy-env "TRAVELPORT_PASSWORD")
   (exec-path-from-shell-copy-env "DEVELOPER_AERO_API_KEY")
   (exec-path-from-shell-copy-env "MAPQUEST_API_KEY")
+  (exec-path-from-shell-copy-env "SERVER_PORT")
+  (exec-path-from-shell-copy-env "AWS_ACCESS_KEY")
+  (exec-path-from-shell-copy-env "AWS_SECRET_KEY")
+  (exec-path-from-shell-copy-env "TRAVELPORT_PCC_TZ_ID")
+  (exec-path-from-shell-copy-env "TRAVELPORT_AIR_TICKETING_TTL_MINS")
+  (exec-path-from-shell-copy-env "TRAVELPORT_PROVIDER")
+  (exec-path-from-shell-copy-env "TRAVELPORT_AUTHORIZED_BY")
+  (exec-path-from-shell-copy-env "TRAVELPORT_SVC_ACCESS_KEY")
   (exec-path-from-shell-initialize))
 
 ;; Turn off magit warning message
