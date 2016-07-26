@@ -145,6 +145,8 @@
   (exec-path-from-shell-copy-env "PLANNER_SVC_USERNAME")
   (exec-path-from-shell-copy-env "SVC_GW_PORT")
   (exec-path-from-shell-copy-env "SVC_GW_LOG_LEVEL")
+  (exec-path-from-shell-copy-env "TEST_CLIENT_PASSWORD")
+  (exec-path-from-shell-copy-env "TEST_CLIENT_USERNAME")
   (exec-path-from-shell-copy-env "TRAVELPORT_AIR_TICKETING_TTL_MINS")
   (exec-path-from-shell-copy-env "TRAVELPORT_AUTHORIZED_BY")
   (exec-path-from-shell-copy-env "TRAVELPORT_ENABLE_CXF_LOGGING")
