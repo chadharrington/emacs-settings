@@ -14,12 +14,13 @@
 
 (defvar my-packages
   '(ace-jump-mode cargo cider dockerfile-mode exec-path-from-shell
-                  ido-ubiquitous magit rainbow-delimiters rst
+                  ido-ubiquitous inf-clojure magit rainbow-delimiters rst
                   starter-kit starter-kit-bindings starter-kit-eshell
                   starter-kit-js starter-kit-lisp switch-window
                   whitespace)
   "A list of packages to ensure are installed at launch.")
 
+(package-refresh-contents)
 (dolist (p my-packages)
   (when (not (package-installed-p p))
     (package-install p)))
@@ -95,9 +96,6 @@
 ;; Enable rainbow-delimiters-mode in other Lisp mode buffers.
 (add-hook 'lisp-mode-hook 'rainbow-delimiters-mode)
 
-;; cider
-(require 'cider)
-
 ;; rst.el
 (require 'rst)
 (setq auto-mode-alist
@@ -111,13 +109,20 @@
 (define-key global-map (kbd "<C-return>") 'ace-jump-mode)
 
 ;; Cider stuff
+(require 'cider)
 (add-hook 'cider-mode-hook #'eldoc-mode)
+(add-hook 'clojure-mode-hook #'eldoc-mode)
 (setq cider-repl-pop-to-buffer-on-connect nil)
 (setq nrepl-hide-special-buffers t)
 (setq nrepl-log-messages nil)
 (setq cider-prompt-save-file-on-load nil)
+(setq nrepl-prompt-to-kill-server-buffer-on-quit nil)
 (add-hook 'cider-repl-mode-hook 'subword-mode)
 (add-hook 'cider-repl-mode-hook 'paredit-mode)
+
+;; inf-clojure
+(add-hook 'inf-clojure-mode-hook #'eldoc-mode)
+(setq inf-clojure-program "planck")
 
 ;; ido stuff
 (setq ido-everywhere t)
@@ -144,9 +149,17 @@
   (exec-path-from-shell-copy-env "FACTUAL_API_SECRET")
   (exec-path-from-shell-copy-env "GET_GW_URLS_URL")
   (exec-path-from-shell-copy-env "MAPQUEST_API_KEY")
+  (exec-path-from-shell-copy-env "PAYMENT_SVC_ENABLE_MOCK_MODE")
+  (exec-path-from-shell-copy-env "PAYMENT_SVC_LOG_LEVEL")
+  (exec-path-from-shell-copy-env "PAYMENT_SVC_PASSWORD")
+  (exec-path-from-shell-copy-env "PAYMENT_SVC_USERNAME")
   (exec-path-from-shell-copy-env "PLANNER_SVC_LOG_LEVEL")
   (exec-path-from-shell-copy-env "PLANNER_SVC_PASSWORD")
   (exec-path-from-shell-copy-env "PLANNER_SVC_USERNAME")
+  (exec-path-from-shell-copy-env "STORAGE_SVC_ENABLE_MOCK_MODE")
+  (exec-path-from-shell-copy-env "STORAGE_SVC_LOG_LEVEL")
+  (exec-path-from-shell-copy-env "STORAGE_SVC_PASSWORD")
+  (exec-path-from-shell-copy-env "STORAGE_SVC_USERNAME")
   (exec-path-from-shell-copy-env "SVC_GW_PORT")
   (exec-path-from-shell-copy-env "SVC_GW_LOG_LEVEL")
   (exec-path-from-shell-copy-env "TEST_CLIENT_LOG_LEVEL")
