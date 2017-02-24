@@ -153,6 +153,7 @@
   (exec-path-from-shell-copy-env "PAYMENT_SVC_LOG_LEVEL")
   (exec-path-from-shell-copy-env "PAYMENT_SVC_PASSWORD")
   (exec-path-from-shell-copy-env "PAYMENT_SVC_USERNAME")
+  (exec-path-from-shell-copy-env "PLANNER_SVC_ENABLE_MOCK_MODE")
   (exec-path-from-shell-copy-env "PLANNER_SVC_LOG_LEVEL")
   (exec-path-from-shell-copy-env "PLANNER_SVC_PASSWORD")
   (exec-path-from-shell-copy-env "PLANNER_SVC_USERNAME")
@@ -174,8 +175,10 @@
   (exec-path-from-shell-copy-env "TRAVELPORT_PASSWORD")
   (exec-path-from-shell-copy-env "TRAVELPORT_PCC_TZ_ID")
   (exec-path-from-shell-copy-env "TRAVELPORT_PROVIDER")
+  (exec-path-from-shell-copy-env "TRAVELPORT_PROXY_LOG_LEVEL")
+  (exec-path-from-shell-copy-env "TRAVELPORT_PROXY_PORT")
   (exec-path-from-shell-copy-env "TRAVELPORT_REMOTE_HOST")
-  (exec-path-from-shell-copy-env "TRAVELPORT_SVC_ENABLE_MOCK_MODE")
+  (exec-path-from-shell-copy-env "TRAVELPORT_SEARCH_ONLY")
   (exec-path-from-shell-copy-env "TRAVELPORT_SVC_PASSWORD")
   (exec-path-from-shell-copy-env "TRAVELPORT_SVC_USERNAME")
   (exec-path-from-shell-copy-env "TRAVELPORT_TARGET_BRANCH")
@@ -190,8 +193,11 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(cider-cljs-lein-repl
+   "(do (require 'cljs.repl.node) (cemerick.piggieback/cljs-repl (cljs.repl.node/repl-env)))")
  '(cider-cljs-repl
-   "(do (require 'cljs.repl.node) (cemerick.piggieback/cljs-repl (cljs.repl.node/repl-env)))"))
+   "(do (require 'cljs.repl.node) (cemerick.piggieback/cljs-repl (cljs.repl.node/repl-env)))")
+ '(cider-inject-dependencies-at-jack-in nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
