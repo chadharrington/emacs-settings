@@ -12,18 +12,19 @@
 (let ((default-directory "/usr/local/share/emacs/site-lisp/"))
   (normal-top-level-add-subdirs-to-load-path))
 
-(defvar my-packages
-  '(ace-jump-mode cargo cider dockerfile-mode exec-path-from-shell
-                  ido-ubiquitous inf-clojure magit rainbow-delimiters rst
-                  starter-kit starter-kit-bindings starter-kit-eshell
-                  starter-kit-js starter-kit-lisp switch-window
-                  whitespace)
-  "A list of packages to ensure are installed at launch.")
+;; Comment these out to speed up normal startup time
+;; (defvar my-packages
+;;   '(ace-jump-mode cargo cider dockerfile-mode exec-path-from-shell
+;;                   ido-ubiquitous inf-clojure magit pyvenv rainbow-delimiters rst
+;;                   starter-kit starter-kit-bindings starter-kit-eshell
+;;                   starter-kit-js starter-kit-lisp switch-window
+;;                   whitespace)
+;;   "A list of packages to ensure are installed at launch.")
 
-(package-refresh-contents)
-(dolist (p my-packages)
-  (when (not (package-installed-p p))
-    (package-install p)))
+;; (package-refresh-contents)
+;; (dolist (p my-packages)
+;;   (when (not (package-installed-p p))
+;;     (package-install p)))
 
 ;; Make the cursor a black bar
 (setq default-cursor-type 'bar)
@@ -76,7 +77,9 @@
   (c-toggle-electric-state 1)
   (c-toggle-auto-newline -1)
   (c-toggle-hungry-state 1)
-  (subword-mode 1))
+  (subword-mode 1)
+  (paredit-mode 1)
+  (esk-paredit-nonlisp))
 (add-hook 'c-mode-common-hook 'my-c-common-mode-hook)
 
 ;; XCode uses 2 spaces for indent, so I do the same in objc-mode
@@ -149,6 +152,7 @@
   (exec-path-from-shell-copy-env "FACTUAL_API_SECRET")
   (exec-path-from-shell-copy-env "GET_GW_URLS_URL")
   (exec-path-from-shell-copy-env "MAPQUEST_API_KEY")
+  (exec-path-from-shell-copy-env "MAPZEN_API_KEY")
   (exec-path-from-shell-copy-env "PAYMENT_SVC_ENABLE_MOCK_MODE")
   (exec-path-from-shell-copy-env "PAYMENT_SVC_LOG_LEVEL")
   (exec-path-from-shell-copy-env "PAYMENT_SVC_PASSWORD")
@@ -175,8 +179,6 @@
   (exec-path-from-shell-copy-env "TRAVELPORT_PASSWORD")
   (exec-path-from-shell-copy-env "TRAVELPORT_PCC_TZ_ID")
   (exec-path-from-shell-copy-env "TRAVELPORT_PROVIDER")
-  (exec-path-from-shell-copy-env "TRAVELPORT_PROXY_LOG_LEVEL")
-  (exec-path-from-shell-copy-env "TRAVELPORT_PROXY_PORT")
   (exec-path-from-shell-copy-env "TRAVELPORT_REMOTE_HOST")
   (exec-path-from-shell-copy-env "TRAVELPORT_SEARCH_ONLY")
   (exec-path-from-shell-copy-env "TRAVELPORT_SVC_PASSWORD")
@@ -197,7 +199,10 @@
    "(do (require 'cljs.repl.node) (cemerick.piggieback/cljs-repl (cljs.repl.node/repl-env)))")
  '(cider-cljs-repl
    "(do (require 'cljs.repl.node) (cemerick.piggieback/cljs-repl (cljs.repl.node/repl-env)))")
- '(cider-inject-dependencies-at-jack-in nil))
+ '(cider-inject-dependencies-at-jack-in nil)
+ '(package-selected-packages
+   (quote
+    (pyvenv switch-window starter-kit-lisp starter-kit-js starter-kit-eshell starter-kit-bindings starter-kit rainbow-delimiters magit inf-clojure ido-ubiquitous exec-path-from-shell dockerfile-mode cider cargo ace-jump-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
