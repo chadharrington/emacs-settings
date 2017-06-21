@@ -12,19 +12,17 @@
 (let ((default-directory "/usr/local/share/emacs/site-lisp/"))
   (normal-top-level-add-subdirs-to-load-path))
 
-;; Comment these out to speed up normal startup time
-;; (defvar my-packages
-;;   '(ace-jump-mode cargo cider dockerfile-mode exec-path-from-shell
-;;                   ido-ubiquitous inf-clojure magit pyvenv rainbow-delimiters rst
-;;                   starter-kit starter-kit-bindings starter-kit-eshell
-;;                   starter-kit-js starter-kit-lisp switch-window
-;;                   whitespace)
-;;   "A list of packages to ensure are installed at launch.")
+(defvar my-packages
+  '(ace-jump-mode cargo cider clojure-mode dockerfile-mode exec-path-from-shell
+                  ido-ubiquitous magit markdown-mode pyvenv rainbow-delimiters
+                  rst starter-kit starter-kit-bindings starter-kit-eshell
+                  starter-kit-js starter-kit-lisp switch-window whitespace)
+  "A list of packages to ensure are installed at launch.")
 
-;; (package-refresh-contents)
-;; (dolist (p my-packages)
-;;   (when (not (package-installed-p p))
-;;     (package-install p)))
+(package-refresh-contents)
+(dolist (p my-packages)
+  (when (not (package-installed-p p))
+    (package-install p)))
 
 ;; Make the cursor a black bar
 (setq default-cursor-type 'bar)
@@ -136,6 +134,11 @@
           (lambda ()
             (local-set-key (kbd "C-c <tab>") #'rust-format-buffer)))
 
+;; Use visual-line-mode in gfm-mode
+(defun my-gfm-mode-hook ()
+  (visual-line-mode 1))
+(add-hook 'gfm-mode-hook 'my-gfm-mode-hook)
+
 ;;;;;;; Manually-managed packages ;;;;;;
 
 ;; Explicitly initialize packages
@@ -151,8 +154,6 @@
   (exec-path-from-shell-copy-env "FACTUAL_API_KEY")
   (exec-path-from-shell-copy-env "FACTUAL_API_SECRET")
   (exec-path-from-shell-copy-env "GET_GW_URLS_URL")
-  (exec-path-from-shell-copy-env "MAPQUEST_API_KEY")
-  (exec-path-from-shell-copy-env "MAPZEN_API_KEY")
   (exec-path-from-shell-copy-env "PAYMENT_SVC_ENABLE_MOCK_MODE")
   (exec-path-from-shell-copy-env "PAYMENT_SVC_LOG_LEVEL")
   (exec-path-from-shell-copy-env "PAYMENT_SVC_PASSWORD")
@@ -202,7 +203,7 @@
  '(cider-inject-dependencies-at-jack-in nil)
  '(package-selected-packages
    (quote
-    (pyvenv switch-window starter-kit-lisp starter-kit-js starter-kit-eshell starter-kit-bindings starter-kit rainbow-delimiters magit inf-clojure ido-ubiquitous exec-path-from-shell dockerfile-mode cider cargo ace-jump-mode))))
+    (markdown-mode pyvenv switch-window starter-kit-lisp starter-kit-js starter-kit-eshell starter-kit-bindings starter-kit rainbow-delimiters magit inf-clojure ido-ubiquitous exec-path-from-shell dockerfile-mode cider cargo ace-jump-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
