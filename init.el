@@ -17,10 +17,11 @@
   (normal-top-level-add-subdirs-to-load-path))
 
 (defvar my-packages
-  '(ace-jump-mode cargo cider clojure-mode dockerfile-mode exec-path-from-shell
+  '(ace-jump-mode cargo cider clojure-mode crm-custom dockerfile-mode
+                  exec-path-from-shell
                   ido-completing-read+ ido-yes-or-no magit markdown-mode
 		  php-mode pyvenv rainbow-delimiters
-                  rst starter-kit starter-kit-bindings starter-kit-eshell
+                  rst smex starter-kit starter-kit-bindings starter-kit-eshell
                   starter-kit-js starter-kit-lisp switch-window whitespace
                   yaml-mode)
   "A list of packages to ensure are installed at launch.")
@@ -141,6 +142,12 @@
 (icomplete-mode 1)
 (require 'crm-custom)
 (crm-custom-mode 1)
+(smex-initialize) ; Can be omitted. This might cause a (minimal) delay
+                  ; when Smex is auto-initialized on its first run.
+(global-set-key (kbd "M-x") 'smex)
+(global-set-key (kbd "M-X") 'smex-major-mode-commands)
+;; This is your old M-x.
+(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
 
 ;; Rust stuff
 (add-hook 'rust-mode-hook 'cargo-minor-mode)
