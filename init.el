@@ -4,6 +4,10 @@
              '("marmalade" . "http://marmalade-repo.org/packages/") t)
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.org/packages/") t)
+(add-to-list 'package-archives
+             '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+;; Only use melpa-stable for cider
+(add-to-list 'package-pinned-packages '(cider . "melpa-stable") t)
 
 (when (not package-archive-contents)
   (package-refresh-contents))
@@ -14,7 +18,8 @@
 
 (defvar my-packages
   '(ace-jump-mode cargo cider clojure-mode dockerfile-mode exec-path-from-shell
-                  ido-ubiquitous magit markdown-mode pyvenv rainbow-delimiters
+                  ido-completing-read+ ido-yes-or-no magit markdown-mode
+		  php-mode pyvenv rainbow-delimiters
                   rst starter-kit starter-kit-bindings starter-kit-eshell
                   starter-kit-js starter-kit-lisp switch-window whitespace
                   yaml-mode)
@@ -128,7 +133,14 @@
 (setq inf-clojure-program "planck")
 
 ;; ido stuff
+(ido-mode 1)
 (setq ido-everywhere t)
+(ido-ubiquitous-mode 1)
+(ido-yes-or-no-mode 1)
+(require 'icomplete)
+(icomplete-mode 1)
+(require 'crm-custom)
+(crm-custom-mode 1)
 
 ;; Rust stuff
 (add-hook 'rust-mode-hook 'cargo-minor-mode)
@@ -153,9 +165,9 @@
   (exec-path-from-shell-copy-env "AWS_SECRET_KEY")
   (exec-path-from-shell-copy-env "AWS_DDB_ENDPOINT")
   (exec-path-from-shell-copy-env "DEVELOPER_AERO_API_KEY")
-  (exec-path-from-shell-copy-env "FACTUAL_API_KEY")
-  (exec-path-from-shell-copy-env "FACTUAL_API_SECRET")
+  (exec-path-from-shell-copy-env "GEOCODER_CA_API_KEY")
   (exec-path-from-shell-copy-env "GET_GW_URLS_URL")
+  (exec-path-from-shell-copy-env "GOOGLE_DIRECTIONS_API_KEY")
   (exec-path-from-shell-copy-env "LIBRATO_TOKEN")
   (exec-path-from-shell-copy-env "PAYMENT_SVC_ENABLE_MOCK_MODE")
   (exec-path-from-shell-copy-env "PAYMENT_SVC_LOG_LEVEL")
@@ -189,6 +201,8 @@
   (exec-path-from-shell-copy-env "TRAVELPORT_SVC_USERNAME")
   (exec-path-from-shell-copy-env "TRAVELPORT_TARGET_BRANCH")
   (exec-path-from-shell-copy-env "TRAVELPORT_USERNAME")
+  (exec-path-from-shell-copy-env "TUBE_JKS_KEYSTORE_PASSWORD")
+  (exec-path-from-shell-copy-env "TUBE_JKS_KEYSTORE_PATH")
   (exec-path-from-shell-initialize))
 
 ;; Turn off magit warning message
@@ -206,7 +220,7 @@
  '(cider-inject-dependencies-at-jack-in nil)
  '(package-selected-packages
    (quote
-    (yaml-mode markdown-mode pyvenv switch-window starter-kit-lisp starter-kit-js starter-kit-eshell starter-kit-bindings starter-kit rainbow-delimiters magit inf-clojure ido-ubiquitous exec-path-from-shell dockerfile-mode cider cargo ace-jump-mode))))
+    (ido-yes-or-no yaml-mode switch-window starter-kit-lisp starter-kit-js starter-kit-eshell starter-kit-bindings rainbow-delimiters pyvenv php-mode markdown-mode exec-path-from-shell dockerfile-mode cider cargo ace-jump-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
