@@ -171,11 +171,11 @@
   (exec-path-from-shell-copy-env "AWS_ACCESS_KEY")
   (exec-path-from-shell-copy-env "AWS_SECRET_KEY")
   (exec-path-from-shell-copy-env "AWS_DDB_ENDPOINT")
-  (exec-path-from-shell-copy-env "DEVELOPER_AERO_API_KEY")
+  (exec-path-from-shell-copy-env "F1_MAX_SKUS")
+  (exec-path-from-shell-copy-env "F1_MAX_USERS")
   (exec-path-from-shell-copy-env "GEOCODER_CA_API_KEY")
   (exec-path-from-shell-copy-env "GET_GW_URLS_URL")
   (exec-path-from-shell-copy-env "GOOGLE_DIRECTIONS_API_KEY")
-  (exec-path-from-shell-copy-env "LIBRATO_TOKEN")
   (exec-path-from-shell-copy-env "PAYMENT_SVC_ENABLE_MOCK_MODE")
   (exec-path-from-shell-copy-env "PAYMENT_SVC_LOG_LEVEL")
   (exec-path-from-shell-copy-env "PAYMENT_SVC_PASSWORD")
@@ -208,8 +208,6 @@
   (exec-path-from-shell-copy-env "TRAVELPORT_SVC_USERNAME")
   (exec-path-from-shell-copy-env "TRAVELPORT_TARGET_BRANCH")
   (exec-path-from-shell-copy-env "TRAVELPORT_USERNAME")
-  (exec-path-from-shell-copy-env "TUBE_JKS_KEYSTORE_PASSWORD")
-  (exec-path-from-shell-copy-env "TUBE_JKS_KEYSTORE_PATH")
   (exec-path-from-shell-initialize))
 
 ;; Turn off magit warning message
