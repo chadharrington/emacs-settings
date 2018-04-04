@@ -9,27 +9,27 @@
 ;; Only use melpa-stable for cider
 (add-to-list 'package-pinned-packages '(cider . "melpa-stable") t)
 
-(when (not package-archive-contents)
-  (package-refresh-contents))
+;; (when (not package-archive-contents)
+;;   (package-refresh-contents))
 
 ;; Add homebrew-installed packages to load-path
 (let ((default-directory "/usr/local/share/emacs/site-lisp/"))
   (normal-top-level-add-subdirs-to-load-path))
 
 (defvar my-packages
-  '(ace-jump-mode cargo cider clojure-mode crm-custom dockerfile-mode
-                  exec-path-from-shell
-                  ido-completing-read+ ido-yes-or-no magit markdown-mode
-		  php-mode pyvenv rainbow-delimiters
-                  rst smex starter-kit starter-kit-bindings starter-kit-eshell
-                  starter-kit-js starter-kit-lisp switch-window whitespace
-                  yaml-mode)
+  '(better-defaults cider clojure-mode dockerfile-mode
+                  exec-path-from-shell magit markdown-mode php-mode
+                  rainbow-delimiters smex switch-window whitespace yaml-mode)
   "A list of packages to ensure are installed at launch.")
 
-(package-refresh-contents)
 (dolist (p my-packages)
   (when (not (package-installed-p p))
     (package-install p)))
+
+(require 'better-defaults)
+
+(require 'ido)
+(ido-mode t)
 
 ;; Make the cursor a black bar
 (setq default-cursor-type 'bar)
@@ -136,12 +136,8 @@
 ;; ido stuff
 (ido-mode 1)
 (setq ido-everywhere t)
-(ido-ubiquitous-mode 1)
-(ido-yes-or-no-mode 1)
 (require 'icomplete)
 (icomplete-mode 1)
-(require 'crm-custom)
-(crm-custom-mode 1)
 (smex-initialize) ; Can be omitted. This might cause a (minimal) delay
                   ; when Smex is auto-initialized on its first run.
 (global-set-key (kbd "M-x") 'smex)
@@ -160,59 +156,64 @@
   (visual-line-mode 1))
 (add-hook 'gfm-mode-hook 'my-gfm-mode-hook)
 
-;;;;;;; Manually-managed packages ;;;;;;
+;;;; Manually-managed packages ;;;;;;
 
-;; Explicitly initialize packages
+;;;; Explicitly initialize packages
 (setq package-enable-at-startup nil)
 (package-initialize)
 
-;; Stuff that needs to happen after packages are initialized
-(when (memq window-system '(mac ns))
-  (exec-path-from-shell-copy-env "AWS_ACCESS_KEY")
-  (exec-path-from-shell-copy-env "AWS_SECRET_KEY")
-  (exec-path-from-shell-copy-env "AWS_DDB_ENDPOINT")
-  (exec-path-from-shell-copy-env "F1_APP_ID")
-  (exec-path-from-shell-copy-env "F1_APP_SECRET")
-  (exec-path-from-shell-copy-env "F1_SELLER_PROXY_PORT")
-  (exec-path-from-shell-copy-env "F1_SERVER_PORT")
-  (exec-path-from-shell-copy-env "GEOCODER_CA_API_KEY")
-  (exec-path-from-shell-copy-env "GET_GW_URLS_URL")
-  (exec-path-from-shell-copy-env "GOOGLE_DIRECTIONS_API_KEY")
-  (exec-path-from-shell-copy-env "LEIN_USERNAME")
-  (exec-path-from-shell-copy-env "LEIN_PASSPHRASE")
-  (exec-path-from-shell-copy-env "PAYMENT_SVC_ENABLE_MOCK_MODE")
-  (exec-path-from-shell-copy-env "PAYMENT_SVC_LOG_LEVEL")
-  (exec-path-from-shell-copy-env "PAYMENT_SVC_PASSWORD")
-  (exec-path-from-shell-copy-env "PAYMENT_SVC_USERNAME")
-  (exec-path-from-shell-copy-env "PLANNER_SVC_ENABLE_MOCK_MODE")
-  (exec-path-from-shell-copy-env "PLANNER_SVC_LOG_LEVEL")
-  (exec-path-from-shell-copy-env "PLANNER_SVC_PASSWORD")
-  (exec-path-from-shell-copy-env "PLANNER_SVC_USERNAME")
-  (exec-path-from-shell-copy-env "STORAGE_SVC_ENABLE_MOCK_MODE")
-  (exec-path-from-shell-copy-env "STORAGE_SVC_LOG_LEVEL")
-  (exec-path-from-shell-copy-env "STORAGE_SVC_PASSWORD")
-  (exec-path-from-shell-copy-env "STORAGE_SVC_USERNAME")
-  (exec-path-from-shell-copy-env "SVC_GW_PORT")
-  (exec-path-from-shell-copy-env "SVC_GW_LOG_LEVEL")
-  (exec-path-from-shell-copy-env "TEST_CLIENT_LOG_LEVEL")
-  (exec-path-from-shell-copy-env "TEST_CLIENT_PASSWORD")
-  (exec-path-from-shell-copy-env "TEST_CLIENT_USERNAME")
-  (exec-path-from-shell-copy-env "TEST_GW_URLS")
-  (exec-path-from-shell-copy-env "TRAVELPORT_AGENCY_PROFILE_ID")
-  (exec-path-from-shell-copy-env "TRAVELPORT_AIR_TICKETING_TTL_MINS")
-  (exec-path-from-shell-copy-env "TRAVELPORT_ALLOW_BOOKING")
-  (exec-path-from-shell-copy-env "TRAVELPORT_AUTHORIZED_BY")
-  (exec-path-from-shell-copy-env "TRAVELPORT_ENABLE_SOAP_LOGGING")
-  (exec-path-from-shell-copy-env "TRAVELPORT_LOG_LEVEL")
-  (exec-path-from-shell-copy-env "TRAVELPORT_NUM_DAS")
-  (exec-path-from-shell-copy-env "TRAVELPORT_ORIGIN_APPLICATION")
-  (exec-path-from-shell-copy-env "TRAVELPORT_PASSWORD")
-  (exec-path-from-shell-copy-env "TRAVELPORT_PCC_TZ_ID")
-  (exec-path-from-shell-copy-env "TRAVELPORT_PROVIDER")
-  (exec-path-from-shell-copy-env "TRAVELPORT_REMOTE_HOST")
-  (exec-path-from-shell-copy-env "TRAVELPORT_TARGET_BRANCH")
-  (exec-path-from-shell-copy-env "TRAVELPORT_USERNAME")
-  (exec-path-from-shell-initialize))
+;; ;; Stuff that needs to happen after packages are initialized
+
+;; This stuff is very slow for some reason...
+;; (when (memq window-system '(mac ns))
+;;   (exec-path-from-shell-copy-env "AWS_ACCESS_KEY")
+;;   (exec-path-from-shell-copy-env "AWS_SECRET_KEY")
+;;   (exec-path-from-shell-copy-env "AWS_DDB_ENDPOINT")
+;;   (exec-path-from-shell-copy-env "F1_APP_ID")
+;;   (exec-path-from-shell-copy-env "F1_APP_SECRET")
+;;   (exec-path-from-shell-copy-env "F1_SELLER_PROXY_PORT")
+;;   (exec-path-from-shell-copy-env "F1_SERVER_PORT")
+;;   (exec-path-from-shell-copy-env "GEOCODER_CA_API_KEY")
+;;   (exec-path-from-shell-copy-env "GET_GW_URLS_URL")
+;;   (exec-path-from-shell-copy-env "GOOGLE_DIRECTIONS_API_KEY")
+;;   (exec-path-from-shell-copy-env "LEIN_USERNAME")
+;;   (exec-path-from-shell-copy-env "LEIN_PASSPHRASE")
+;;   (exec-path-from-shell-copy-env "PAYMENT_SVC_ENABLE_MOCK_MODE")
+;;   (exec-path-from-shell-copy-env "PAYMENT_SVC_LOG_LEVEL")
+;;   (exec-path-from-shell-copy-env "PAYMENT_SVC_PASSWORD")
+;;   (exec-path-from-shell-copy-env "PAYMENT_SVC_USERNAME")
+;;   (exec-path-from-shell-copy-env "PLANNER_SVC_ENABLE_MOCK_MODE")
+;;   (exec-path-from-shell-copy-env "PLANNER_SVC_LOG_LEVEL")
+;;   (exec-path-from-shell-copy-env "PLANNER_SVC_PASSWORD")
+;;   (exec-path-from-shell-copy-env "PLANNER_SVC_USERNAME")
+;;   (exec-path-from-shell-copy-env "STORAGE_SVC_ENABLE_MOCK_MODE")
+;;   (exec-path-from-shell-copy-env "STORAGE_SVC_LOG_LEVEL")
+;;   (exec-path-from-shell-copy-env "STORAGE_SVC_PASSWORD")
+;;   (exec-path-from-shell-copy-env "STORAGE_SVC_USERNAME")
+;;   (exec-path-from-shell-copy-env "SVC_GW_PORT")
+;;   (exec-path-from-shell-copy-env "SVC_GW_LOG_LEVEL")
+;;   (exec-path-from-shell-copy-env "TEST_CLIENT_LOG_LEVEL")
+;;   (exec-path-from-shell-copy-env "TEST_CLIENT_PASSWORD")
+;;   (exec-path-from-shell-copy-env "TEST_CLIENT_USERNAME")
+;;   (exec-path-from-shell-copy-env "TEST_GW_URLS")
+;;   (exec-path-from-shell-copy-env "TRAVELPORT_AGENCY_PROFILE_ID")
+;;   (exec-path-from-shell-copy-env "TRAVELPORT_AIR_TICKETING_TTL_MINS")
+;;   (exec-path-from-shell-copy-env "TRAVELPORT_ALLOW_BOOKING")
+;;   (exec-path-from-shell-copy-env "TRAVELPORT_AUTHORIZED_BY")
+;;   (exec-path-from-shell-copy-env "TRAVELPORT_ENABLE_SOAP_LOGGING")
+;;   (exec-path-from-shell-copy-env "TRAVELPORT_HCP_PASSWORD")
+;;   (exec-path-from-shell-copy-env "TRAVELPORT_HCP_URL")
+;;   (exec-path-from-shell-copy-env "TRAVELPORT_HCP_USERNAME")
+;;   (exec-path-from-shell-copy-env "TRAVELPORT_LOG_LEVEL")
+;;   (exec-path-from-shell-copy-env "TRAVELPORT_NUM_DAS")
+;;   (exec-path-from-shell-copy-env "TRAVELPORT_ORIGIN_APPLICATION")
+;;   (exec-path-from-shell-copy-env "TRAVELPORT_PASSWORD")
+;;   (exec-path-from-shell-copy-env "TRAVELPORT_PCC_TZ_ID")
+;;   (exec-path-from-shell-copy-env "TRAVELPORT_PROVIDER")
+;;   (exec-path-from-shell-copy-env "TRAVELPORT_REMOTE_HOST")
+;;   (exec-path-from-shell-copy-env "TRAVELPORT_TARGET_BRANCH")
+;;   (exec-path-from-shell-copy-env "TRAVELPORT_USERNAME")
+;;   (exec-path-from-shell-initialize))
 
 ;; Turn off magit warning message
 (setq magit-last-seen-setup-instructions "1.4.0")
@@ -226,13 +227,4 @@
    "(do (require 'cljs.repl.node) (cemerick.piggieback/cljs-repl (cljs.repl.node/repl-env)))")
  '(cider-cljs-repl
    "(do (require 'cljs.repl.node) (cemerick.piggieback/cljs-repl (cljs.repl.node/repl-env)))")
- '(cider-inject-dependencies-at-jack-in nil)
- '(package-selected-packages
-   (quote
-    (yaml-mode switch-window starter-kit-lisp starter-kit-js starter-kit-eshell starter-kit-bindings rainbow-delimiters pyvenv php-mode markdown-mode exec-path-from-shell dockerfile-mode cider cargo ace-jump-mode))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+ '(cider-inject-dependencies-at-jack-in nil))
