@@ -1,5 +1,4 @@
 (require 'package)
-(package-initialize)
 (add-to-list 'package-archives
              '("marmalade" . "https://marmalade-repo.org/packages/") t)
 (add-to-list 'package-archives
@@ -8,18 +7,21 @@
              '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 ;; Only use melpa-stable for cider
 (add-to-list 'package-pinned-packages '(cider . "melpa-stable") t)
+(package-initialize)
 
-;; (when (not package-archive-contents)
-;;   (package-refresh-contents))
+(when (not package-archive-contents)
+  (package-refresh-contents))
 
 ;; Add homebrew-installed packages to load-path
 (let ((default-directory "/usr/local/share/emacs/site-lisp/"))
   (normal-top-level-add-subdirs-to-load-path))
 
 (defvar my-packages
-  '(better-defaults cider clojure-mode dockerfile-mode
-                  exec-path-from-shell magit markdown-mode php-mode
-                  rainbow-delimiters smex switch-window whitespace yaml-mode)
+  '(aggressive-indent better-defaults cider clojure-mode dockerfile-mode
+                      exec-path-from-shell idle-highlight-mode
+                      magit markdown-mode paredit php-mode
+                      rainbow-delimiters smex switch-window whitespace
+                      yaml-mode)
   "A list of packages to ensure are installed at launch.")
 
 (dolist (p my-packages)
@@ -30,6 +32,20 @@
 
 (require 'ido)
 (ido-mode t)
+
+(setq inhibit-startup-message t) ;; No splash screen
+(setq initial-scratch-message nil) ;; No scratch message
+;; Create backup files in .emacs-backup instead of everywhere
+(defvar user-temporary-file-directory "~/.emacs-backup")
+(make-directory user-temporary-file-directory t)
+(setq backup-by-copying t)
+(setq backup-directory-alist
+      `(("." . ,user-temporary-file-directory)
+        (,tramp-file-name-regexp nil)))
+(setq auto-save-list-file-prefix
+      (concat user-temporary-file-directory ".auto-saves-"))
+(setq auto-save-file-name-transforms
+      `((".*" ,user-temporary-file-directory t)))
 
 ;; Make the cursor a black bar
 (setq default-cursor-type 'bar)
@@ -65,6 +81,9 @@
 (normal-erase-is-backspace-mode 1)
 (global-auto-revert-mode t)
 
+;; highlight words
+(add-hook 'prog-mode-hook (lambda () (idle-highlight-mode t)))
+
 ;; Indentation
 (defun indent-buffer ()
   "Indent current buffer according to major mode."
@@ -92,6 +111,12 @@
 (defun my-obj-c-mode-hook ()
   (setq c-basic-offset 2))
 (add-hook 'objc-mode-hook 'my-obj-c-mode-hook)
+
+;; Clojure stuff
+(add-hook 'clojure-mode-hook #'subword-mode)
+(add-hook 'clojure-mode-hook #'paredit-mode)
+(add-hook 'clojure-mode-hook #'aggressive-indent-mode)
+(add-hook 'clojurescript-mode-hook 'paredit-mode)
 
 (setq inferior-lisp-program "lein repl")
 (add-hook 'inferior-lisp-mode-hook 'paredit-mode)
@@ -128,10 +153,6 @@
 (setq nrepl-prompt-to-kill-server-buffer-on-quit nil)
 (add-hook 'cider-repl-mode-hook 'subword-mode)
 (add-hook 'cider-repl-mode-hook 'paredit-mode)
-
-;; inf-clojure
-(add-hook 'inf-clojure-mode-hook #'eldoc-mode)
-(setq inf-clojure-program "planck")
 
 ;; ido stuff
 (ido-mode 1)
@@ -227,4 +248,13 @@
    "(do (require 'cljs.repl.node) (cemerick.piggieback/cljs-repl (cljs.repl.node/repl-env)))")
  '(cider-cljs-repl
    "(do (require 'cljs.repl.node) (cemerick.piggieback/cljs-repl (cljs.repl.node/repl-env)))")
- '(cider-inject-dependencies-at-jack-in nil))
+ '(cider-inject-dependencies-at-jack-in nil)
+ '(package-selected-packages
+   (quote
+    (paredit yaml-mode switch-window smex rainbow-delimiters php-mode markdown-mode magit exec-path-from-shell dockerfile-mode cider better-defaults aggressive-indent ace-jump-mode))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
