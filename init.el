@@ -51,9 +51,9 @@
 (setq default-cursor-type 'bar)
 (set-cursor-color "black")
 
-;; Add to ~/bin to path
-(setenv "PATH" (concat (getenv "PATH") ":/Users/chad/bin"))
-(setq exec-path (append exec-path '("/Users/chad/bin")))
+(setenv "PATH" (concat (getenv "PATH") ":/Users/chad/bin:/usr/local/bin"))
+(setq exec-path (append exec-path '("/Users/chad/bin"
+                                    "/usr/local/bin")))
 
 ;; Mac-specific stuff
 (setq browse-url-browser-function 'browse-url-default-macosx-browser
