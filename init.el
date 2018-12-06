@@ -183,58 +183,17 @@
 (setq package-enable-at-startup nil)
 (package-initialize)
 
-;; ;; Stuff that needs to happen after packages are initialized
+;; Stuff that needs to happen after packages are initialized
 
-;; This stuff is very slow for some reason...
-;; (when (memq window-system '(mac ns))
-;;   (exec-path-from-shell-copy-env "AWS_ACCESS_KEY")
-;;   (exec-path-from-shell-copy-env "AWS_SECRET_KEY")
-;;   (exec-path-from-shell-copy-env "AWS_DDB_ENDPOINT")
-;;   (exec-path-from-shell-copy-env "F1_APP_ID")
-;;   (exec-path-from-shell-copy-env "F1_APP_SECRET")
-;;   (exec-path-from-shell-copy-env "F1_SELLER_PROXY_PORT")
-;;   (exec-path-from-shell-copy-env "F1_SERVER_PORT")
-;;   (exec-path-from-shell-copy-env "GEOCODER_CA_API_KEY")
-;;   (exec-path-from-shell-copy-env "GET_GW_URLS_URL")
-;;   (exec-path-from-shell-copy-env "GOOGLE_DIRECTIONS_API_KEY")
-;;   (exec-path-from-shell-copy-env "LEIN_USERNAME")
-;;   (exec-path-from-shell-copy-env "LEIN_PASSPHRASE")
-;;   (exec-path-from-shell-copy-env "PAYMENT_SVC_ENABLE_MOCK_MODE")
-;;   (exec-path-from-shell-copy-env "PAYMENT_SVC_LOG_LEVEL")
-;;   (exec-path-from-shell-copy-env "PAYMENT_SVC_PASSWORD")
-;;   (exec-path-from-shell-copy-env "PAYMENT_SVC_USERNAME")
-;;   (exec-path-from-shell-copy-env "PLANNER_SVC_ENABLE_MOCK_MODE")
-;;   (exec-path-from-shell-copy-env "PLANNER_SVC_LOG_LEVEL")
-;;   (exec-path-from-shell-copy-env "PLANNER_SVC_PASSWORD")
-;;   (exec-path-from-shell-copy-env "PLANNER_SVC_USERNAME")
-;;   (exec-path-from-shell-copy-env "STORAGE_SVC_ENABLE_MOCK_MODE")
-;;   (exec-path-from-shell-copy-env "STORAGE_SVC_LOG_LEVEL")
-;;   (exec-path-from-shell-copy-env "STORAGE_SVC_PASSWORD")
-;;   (exec-path-from-shell-copy-env "STORAGE_SVC_USERNAME")
-;;   (exec-path-from-shell-copy-env "SVC_GW_PORT")
-;;   (exec-path-from-shell-copy-env "SVC_GW_LOG_LEVEL")
-;;   (exec-path-from-shell-copy-env "TEST_CLIENT_LOG_LEVEL")
-;;   (exec-path-from-shell-copy-env "TEST_CLIENT_PASSWORD")
-;;   (exec-path-from-shell-copy-env "TEST_CLIENT_USERNAME")
-;;   (exec-path-from-shell-copy-env "TEST_GW_URLS")
-;;   (exec-path-from-shell-copy-env "TRAVELPORT_AGENCY_PROFILE_ID")
-;;   (exec-path-from-shell-copy-env "TRAVELPORT_AIR_TICKETING_TTL_MINS")
-;;   (exec-path-from-shell-copy-env "TRAVELPORT_ALLOW_BOOKING")
-;;   (exec-path-from-shell-copy-env "TRAVELPORT_AUTHORIZED_BY")
-;;   (exec-path-from-shell-copy-env "TRAVELPORT_ENABLE_SOAP_LOGGING")
-;;   (exec-path-from-shell-copy-env "TRAVELPORT_HCP_PASSWORD")
-;;   (exec-path-from-shell-copy-env "TRAVELPORT_HCP_URL")
-;;   (exec-path-from-shell-copy-env "TRAVELPORT_HCP_USERNAME")
-;;   (exec-path-from-shell-copy-env "TRAVELPORT_LOG_LEVEL")
-;;   (exec-path-from-shell-copy-env "TRAVELPORT_NUM_DAS")
-;;   (exec-path-from-shell-copy-env "TRAVELPORT_ORIGIN_APPLICATION")
-;;   (exec-path-from-shell-copy-env "TRAVELPORT_PASSWORD")
-;;   (exec-path-from-shell-copy-env "TRAVELPORT_PCC_TZ_ID")
-;;   (exec-path-from-shell-copy-env "TRAVELPORT_PROVIDER")
-;;   (exec-path-from-shell-copy-env "TRAVELPORT_REMOTE_HOST")
-;;   (exec-path-from-shell-copy-env "TRAVELPORT_TARGET_BRANCH")
-;;   (exec-path-from-shell-copy-env "TRAVELPORT_USERNAME")
-;;   (exec-path-from-shell-initialize))
+;; This takes ~5-10 seconds at startup, so only use when needed
+(when (memq window-system '(mac ns x))
+  (setq exec-path-from-shell-variables
+        '(;;"TRAVELPORT_AGENCY_PROFILE_ID"
+          ;;"TRAVELPORT_AIR_TICKETING_TTL_MINS"
+          "DATOMIC_APP_INFO_MAP"
+          "DATOMIC_ENV_MAP"))
+  (exec-path-from-shell-initialize))
+
 
 ;; Turn off magit warning message
 (setq magit-last-seen-setup-instructions "1.4.0")
@@ -244,11 +203,6 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(cider-cljs-lein-repl
-   "(do (require 'cljs.repl.node) (cemerick.piggieback/cljs-repl (cljs.repl.node/repl-env)))")
- '(cider-cljs-repl
-   "(do (require 'cljs.repl.node) (cemerick.piggieback/cljs-repl (cljs.repl.node/repl-env)))")
- '(cider-inject-dependencies-at-jack-in nil)
  '(package-selected-packages
    (quote
     (paredit yaml-mode switch-window smex rainbow-delimiters php-mode markdown-mode magit exec-path-from-shell dockerfile-mode cider better-defaults aggressive-indent ace-jump-mode))))
