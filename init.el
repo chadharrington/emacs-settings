@@ -97,7 +97,7 @@
 
 (defun my-c-common-mode-hook ()
   (c-set-style "linux")
-  (setq c-basic-offset 4)
+  (setq c-basic-offset 2)
   (setq indent-tabs-mode nil)
   (c-toggle-electric-state 1)
   (c-toggle-auto-newline -1)
