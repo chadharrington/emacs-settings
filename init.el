@@ -185,7 +185,6 @@
 
 ;; Stuff that needs to happen after packages are initialized
 
-;; This takes ~5-10 seconds at startup, so only use when needed
 (when (memq window-system '(mac ns x))
   (setq exec-path-from-shell-variables
         '(;;"TRAVELPORT_AGENCY_PROFILE_ID"
