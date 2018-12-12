@@ -151,6 +151,7 @@
 (setq nrepl-log-messages nil)
 (setq cider-prompt-save-file-on-load nil)
 (setq nrepl-prompt-to-kill-server-buffer-on-quit nil)
+(setq cider-inject-dependencies-at-jack-in nil)
 (add-hook 'cider-repl-mode-hook 'subword-mode)
 (add-hook 'cider-repl-mode-hook 'paredit-mode)
 
@@ -187,10 +188,16 @@
 
 (when (memq window-system '(mac ns x))
   (setq exec-path-from-shell-variables
-        '(;;"TRAVELPORT_AGENCY_PROFILE_ID"
-          ;;"TRAVELPORT_AIR_TICKETING_TTL_MINS"
-          "DATOMIC_APP_INFO_MAP"
-          "DATOMIC_ENV_MAP"))
+        '("DATOMIC_APP_INFO_MAP"
+          "DATOMIC_ENV_MAP"
+          "ES_PASSWORD"
+          "ES_RECIPES_INDEX"
+          "ES_URL"
+          "ES_USER"
+          "ES_USERS_INDEX"
+          "TRAVELPORT_AGENCY_PROFILE_ID"
+          "TRAVELPORT_AIR_TICKETING_TTL_MINS"
+          ))
   (exec-path-from-shell-initialize))
 
 
