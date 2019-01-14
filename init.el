@@ -48,7 +48,7 @@
       `((".*" ,user-temporary-file-directory t)))
 
 ;; Make the cursor a black bar
-(setq default-cursor-type 'bar)
+(setq-default cursor-type 'bar)
 (set-cursor-color "black")
 
 (setenv "PATH" (concat (getenv "PATH") ":/Users/chad/bin:/usr/local/bin"))
