@@ -18,10 +18,10 @@
 
 (defvar my-packages
   '(aggressive-indent better-defaults cider clojure-mode dockerfile-mode
-                      exec-path-from-shell idle-highlight-mode
+                      exec-path-from-shell graphql-mode idle-highlight-mode
                       magit markdown-mode paredit php-mode
-                      rainbow-delimiters smex switch-window whitespace
-                      yaml-mode)
+                      rainbow-delimiters smex swift-mode switch-window
+                      whitespace yaml-mode)
   "A list of packages to ensure are installed at launch.")
 
 (dolist (p my-packages)
@@ -224,7 +224,8 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (paredit yaml-mode switch-window smex rainbow-delimiters php-mode markdown-mode magit exec-path-from-shell dockerfile-mode cider better-defaults aggressive-indent ace-jump-mode))))
+    (graphql-mode swift-mode paredit yaml-mode switch-window smex rainbow-delimiters php-mode markdown-mode magit exec-path-from-shell dockerfile-mode cider better-defaults aggressive-indent ace-jump-mode)))
+ '(safe-local-variable-values (quote ((cider-clojure-cli-global-options . -A:dev)))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
