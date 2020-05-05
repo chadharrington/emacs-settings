@@ -5,8 +5,8 @@
              '("melpa" . "https://melpa.org/packages/") t)
 (add-to-list 'package-archives
              '("melpa-stable" . "https://stable.melpa.org/packages/") t)
-;; Only use melpa-stable for cider
-(add-to-list 'package-pinned-packages '(cider . "melpa-stable") t)
+;; keep the installed packages in .emacs.d
+(setq package-user-dir (expand-file-name "elpa" user-emacs-directory))
 (package-initialize)
 
 (when (not package-archive-contents)
@@ -216,19 +216,3 @@
 
 ;; Turn off magit warning message
 (setq magit-last-seen-setup-instructions "1.4.0")
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   (quote
-    (graphql-mode swift-mode paredit yaml-mode switch-window smex rainbow-delimiters php-mode markdown-mode magit exec-path-from-shell dockerfile-mode cider better-defaults aggressive-indent ace-jump-mode)))
- '(safe-local-variable-values (quote ((cider-clojure-cli-global-options . -A:dev)))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
