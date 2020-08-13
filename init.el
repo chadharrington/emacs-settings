@@ -18,8 +18,9 @@
   (normal-top-level-add-subdirs-to-load-path))
 
 (defvar my-packages
-  '(aggressive-indent better-defaults cider clojure-mode dockerfile-mode
-                      exec-path-from-shell graphql-mode idle-highlight-mode
+  '(aggressive-indent better-defaults cider clojure-mode dart-mode
+                      dockerfile-mode exec-path-from-shell
+                      graphql-mode idle-highlight-mode
                       magit markdown-mode paredit php-mode
                       rainbow-delimiters smex swift-mode switch-window
                       whitespace yaml-mode)
