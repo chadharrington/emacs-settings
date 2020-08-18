@@ -8,7 +8,6 @@
 (add-to-list 'package-pinned-packages '(cider . "melpa-stable") t)
 ;; keep the installed packages in .emacs.d
 (setq package-user-dir (expand-file-name "elpa" user-emacs-directory))
-(package-initialize)
 
 (when (not package-archive-contents)
   (package-refresh-contents))
