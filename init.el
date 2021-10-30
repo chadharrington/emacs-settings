@@ -5,10 +5,11 @@
              '("melpa" . "https://melpa.org/packages/") t)
 (add-to-list 'package-archives
              '("melpa-stable" . "https://stable.melpa.org/packages/") t)
-(add-to-list 'package-pinned-packages '(cider . "melpa-stable") t)
+;(add-to-list 'package-pinned-packages '(cider . "melpa-stable") t)
 ;; keep the installed packages in .emacs.d
 (setq package-user-dir (expand-file-name "elpa" user-emacs-directory))
 (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
+(add-to-list 'load-path "~/.emacs.d/my-lisp/")
 (package-initialize)
 
 (when (not package-archive-contents)
@@ -21,11 +22,14 @@
 (defvar my-packages
   '(aggressive-indent better-defaults cider clojure-mode dart-mode
                       dockerfile-mode exec-path-from-shell
-                      graphql-mode idle-highlight-mode
+                      graphql-mode
+                      ;; idle-highlight-mode ; Loaded manually to control ver
+                      inf-clojure
                       magit markdown-mode paredit php-mode
                       rainbow-delimiters smex swift-mode switch-window
-                      whitespace yaml-mode)
+                      use-package whitespace yaml-mode)
   "A list of packages to ensure are installed at launch.")
+(load "idle-highlight-mode")
 
 (dolist (p my-packages)
   (when (not (package-installed-p p))
@@ -85,7 +89,11 @@
 (global-auto-revert-mode t)
 
 ;; highlight words
-(add-hook 'prog-mode-hook (lambda () (idle-highlight-mode t)))
+(use-package idle-highlight-mode
+  :config (setq idle-highlight-exceptions '())
+  :hook ((prog-mode text-mode) . idle-highlight-mode))
+
+;;(add-hook 'prog-mode-hook (lambda () (idle-highlight-mode t)))
 
 ;; Indentation
 (defun indent-buffer ()
@@ -121,8 +129,25 @@
 (add-hook 'clojure-mode-hook #'aggressive-indent-mode)
 (add-hook 'clojurescript-mode-hook 'paredit-mode)
 
-(setq inferior-lisp-program "lein repl")
-(add-hook 'inferior-lisp-mode-hook 'paredit-mode)
+;; ;; inf-clojure stuff
+;; (add-hook 'clojure-mode-hook #'inf-clojure-minor-mode)
+;; (add-hook 'inf-clojure-minor-mode-hook #'subword-mode)
+;; (add-hook 'inf-clojure-minor-mode-hook #'paredit-mode)
+
+;; Cider stuff
+(require 'cider)
+(add-hook 'cider-mode-hook #'eldoc-mode)
+(add-hook 'clojure-mode-hook #'eldoc-mode)
+(setq cider-repl-pop-to-buffer-on-connect nil)
+(setq nrepl-hide-special-buffers t)
+(setq nrepl-log-messages nil)
+(setq cider-prompt-save-file-on-load nil)
+(setq nrepl-prompt-to-kill-server-buffer-on-quit nil)
+(setq cider-inject-dependencies-at-jack-in nil)
+(add-hook 'cider-repl-mode-hook 'subword-mode)
+(add-hook 'cider-repl-mode-hook 'paredit-mode)
+
+
 
 ;; rainbow-delimiters.el
 (require 'rainbow-delimiters)
@@ -144,19 +169,6 @@
 
 ;; ace-jump mode
 (define-key global-map (kbd "<C-return>") 'ace-jump-mode)
-
-;; Cider stuff
-(require 'cider)
-(add-hook 'cider-mode-hook #'eldoc-mode)
-(add-hook 'clojure-mode-hook #'eldoc-mode)
-(setq cider-repl-pop-to-buffer-on-connect nil)
-(setq nrepl-hide-special-buffers t)
-(setq nrepl-log-messages nil)
-(setq cider-prompt-save-file-on-load nil)
-(setq nrepl-prompt-to-kill-server-buffer-on-quit nil)
-(setq cider-inject-dependencies-at-jack-in nil)
-(add-hook 'cider-repl-mode-hook 'subword-mode)
-(add-hook 'cider-repl-mode-hook 'paredit-mode)
 
 ;; ido stuff
 (ido-mode 1)
@@ -226,7 +238,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (cider yaml-mode switch-window swift-mode spinner smex sesman rainbow-delimiters queue pkg-info php-mode parseedn paredit markdown-mode magit idle-highlight-mode graphql-mode exec-path-from-shell dockerfile-mode clojure-mode better-defaults aggressive-indent))))
+    (yaml-mode switch-window swift-mode spinner smex sesman rainbow-delimiters queue pkg-info php-mode parseedn paredit markdown-mode magit idle-highlight-mode graphql-mode exec-path-from-shell dockerfile-mode clojure-mode better-defaults aggressive-indent))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
