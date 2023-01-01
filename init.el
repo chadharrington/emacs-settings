@@ -133,54 +133,44 @@
   (setq c-basic-offset 2))
 (add-hook 'objc-mode-hook 'my-obj-c-mode-hook)
 
-;; ;; Clojure stuff
-;; (add-hook 'clojure-mode-hook #'subword-mode)
-;; (add-hook 'clojure-mode-hook #'paredit-mode)
-;; (add-hook 'clojure-mode-hook #'aggressive-indent-mode)
-;; (add-hook 'clojurescript-mode-hook 'paredit-mode)
+;; Clojure stuff
+(add-hook 'clojure-mode-hook #'subword-mode)
+(add-hook 'clojure-mode-hook #'paredit-mode)
+(add-hook 'clojure-mode-hook #'aggressive-indent-mode)
+(add-hook 'clojurescript-mode-hook 'paredit-mode)
 
-;; ;; ;; inf-clojure stuff
-;; ;; (add-hook 'clojure-mode-hook #'inf-clojure-minor-mode)
-;; ;; (add-hook 'inf-clojure-minor-mode-hook #'subword-mode)
-;; ;; (add-hook 'inf-clojure-minor-mode-hook #'paredit-mode)
+;; ;; inf-clojure stuff
+;; (add-hook 'clojure-mode-hook #'inf-clojure-minor-mode)
+;; (add-hook 'inf-clojure-minor-mode-hook #'subword-mode)
+;; (add-hook 'inf-clojure-minor-mode-hook #'paredit-mode)
 
-;; ;; Cider stuff
-;; (require 'cider)
-;; (add-hook 'cider-mode-hook #'eldoc-mode)
-;; (add-hook 'clojure-mode-hook #'eldoc-mode)
-;; (setq cider-repl-pop-to-buffer-on-connect nil)
-;; (setq nrepl-hide-special-buffers t)
-;; (setq nrepl-log-messages nil)
-;; (setq cider-prompt-save-file-on-load nil)
-;; (setq nrepl-prompt-to-kill-server-buffer-on-quit nil)
-;; ;; (setq cider-inject-dependencies-at-jack-in nil)
-;; (setq cider-clojure-cli-aliases "-M:clj:dev:test:ci")
-;; (setq nrepl-use-ssh-fallback-for-remote-hosts t)
-;; (add-hook 'cider-repl-mode-hook 'subword-mode)
-;; (add-hook 'cider-repl-mode-hook 'paredit-mode)
+;; Cider stuff
+(require 'cider)
+(add-hook 'cider-mode-hook #'eldoc-mode)
+(add-hook 'clojure-mode-hook #'eldoc-mode)
+(setq cider-repl-pop-to-buffer-on-connect nil)
+(setq nrepl-hide-special-buffers t)
+(setq nrepl-log-messages nil)
+(setq cider-prompt-save-file-on-load nil)
+(setq nrepl-prompt-to-kill-server-buffer-on-quit nil)
+;; (setq cider-inject-dependencies-at-jack-in nil)
+(setq cider-clojure-cli-aliases "-M:clj:dev:test:ci")
+(setq nrepl-use-ssh-fallback-for-remote-hosts t)
+(add-hook 'cider-repl-mode-hook 'subword-mode)
+(add-hook 'cider-repl-mode-hook 'paredit-mode)
 
+;; rainbow-delimiters.el
+(require 'rainbow-delimiters)
+;; Enable rainbow-delimiters-mode in Emacs Lisp buffers
+(add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode)
+;; Enable rainbow-delimiters-mode in Clojure buffers.
+(add-hook 'clojure-mode-hook 'rainbow-delimiters-mode)
+;; Enable rainbow-delimiters-mode in other Lisp mode buffers.
+(add-hook 'lisp-mode-hook 'rainbow-delimiters-mode)
 
+;; switch-window.el
+(global-set-key (kbd "C-x o") 'switch-window)
 
-;; ;; rainbow-delimiters.el
-;; (require 'rainbow-delimiters)
-;; ;; Enable rainbow-delimiters-mode in Emacs Lisp buffers
-;; (add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode)
-;; ;; Enable rainbow-delimiters-mode in Clojure buffers.
-;; (add-hook 'clojure-mode-hook 'rainbow-delimiters-mode)
-;; ;; Enable rainbow-delimiters-mode in other Lisp mode buffers.
-;; (add-hook 'lisp-mode-hook 'rainbow-delimiters-mode)
-
-;; ;; rst.el
-;; (require 'rst)
-;; (setq auto-mode-alist
-;;       (append '(("\\.rst$" . rst-mode)
-;;                 ("\\.rest$" . rst-mode)) auto-mode-alist))
-
-;; ;; switch-window.el
-;; (global-set-key (kbd "C-x o") 'switch-window)
-
-;; ;; ace-jump mode
-;; (define-key global-map (kbd "<C-return>") 'ace-jump-mode)
 
 ;; ido stuff
 (ido-mode 1)
@@ -193,17 +183,6 @@
 (global-set-key (kbd "M-X") 'smex-major-mode-commands)
 ;; This is your old M-x.
 (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
-
-;; ;; Rust stuff
-;; (add-hook 'rust-mode-hook 'cargo-minor-mode)
-;; (add-hook 'rust-mode-hook
-;;           (lambda ()
-;;             (local-set-key (kbd "C-c <tab>") #'rust-format-buffer)))
-
-;; ;; Use visual-line-mode in gfm-mode
-;; (defun my-gfm-mode-hook ()
-;;   (visual-line-mode 1))
-;; (add-hook 'gfm-mode-hook 'my-gfm-mode-hook)
 
 ;; ;;;; Manually-managed packages ;;;;;;
 
