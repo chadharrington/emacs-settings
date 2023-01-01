@@ -14,13 +14,14 @@
 (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
 (add-to-list 'load-path "~/.emacs.d/my-lisp/")
 
-;; ;; Add homebrew-installed packages to load-path
-;; (let ((default-directory "/usr/local/share/emacs/site-lisp/"))
-;;   (normal-top-level-add-subdirs-to-load-path))
+;; Add homebrew-installed packages to load-path
+(let ((default-directory "/usr/local/share/emacs/site-lisp/"))
+  (normal-top-level-add-subdirs-to-load-path))
 
 (straight-use-package 'better-defaults)
 (straight-use-package 'cider)
 (straight-use-package 'clojure-mode)
+(straight-use-package 'dockerfile-mode)
 (straight-use-package 'exec-path-from-shell)
 (straight-use-package 'magit)
 (straight-use-package 'markdown-mode)
@@ -43,7 +44,7 @@
 ;; ;;                       use-package whitespace yaml-mode)
 
 ;; "A list of packages to ensure are installed at launch.")
-;; (load "idle-highlight-mode")
+(load "idle-highlight-mode")
 
 (require 'better-defaults)
 
@@ -98,40 +99,39 @@
 (normal-erase-is-backspace-mode 1)
 (global-auto-revert-mode t)
 
-;; ;; highlight words
-;; (use-package idle-highlight-mode
-;;   :config (setq idle-highlight-exceptions '())
-;;   :hook ((prog-mode text-mode) . idle-highlight-mode))
+;; highlight words
+(use-package idle-highlight-mode
+  :config (setq idle-highlight-exceptions '())
+  :hook ((prog-mode text-mode) . idle-highlight-mode))
+;;(add-hook 'prog-mode-hook (lambda () (idle-highlight-mode t)))
 
-;; ;;(add-hook 'prog-mode-hook (lambda () (idle-highlight-mode t)))
+;; Indentation
+(defun indent-buffer ()
+  "Indent current buffer according to major mode."
+  (interactive)
+  (indent-region (point-min) (point-max)))
 
-;; ;; Indentation
-;; (defun indent-buffer ()
-;;   "Indent current buffer according to major mode."
-;;   (interactive)
-;;   (indent-region (point-min) (point-max)))
+;; use UTF-8
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
+(prefer-coding-system 'utf-8)
 
-;; ;; use UTF-8
-;; (set-terminal-coding-system 'utf-8)
-;; (set-keyboard-coding-system 'utf-8)
-;; (prefer-coding-system 'utf-8)
+(defun my-c-common-mode-hook ()
+  (c-set-style "linux")
+  (setq c-basic-offset 2)
+  (setq indent-tabs-mode nil)
+  (c-toggle-electric-state 1)
+  (c-toggle-auto-newline -1)
+  (c-toggle-hungry-state 1)
+  (subword-mode 1)
+  (paredit-mode 1)
+  (esk-paredit-nonlisp))
+(add-hook 'c-mode-common-hook 'my-c-common-mode-hook)
 
-;; (defun my-c-common-mode-hook ()
-;;   (c-set-style "linux")
-;;   (setq c-basic-offset 2)
-;;   (setq indent-tabs-mode nil)
-;;   (c-toggle-electric-state 1)
-;;   (c-toggle-auto-newline -1)
-;;   (c-toggle-hungry-state 1)
-;;   (subword-mode 1)
-;;   (paredit-mode 1)
-;;   (esk-paredit-nonlisp))
-;; (add-hook 'c-mode-common-hook 'my-c-common-mode-hook)
-
-;; ;; XCode uses 2 spaces for indent, so I do the same in objc-mode
-;; (defun my-obj-c-mode-hook ()
-;;   (setq c-basic-offset 2))
-;; (add-hook 'objc-mode-hook 'my-obj-c-mode-hook)
+;; XCode uses 2 spaces for indent, so I do the same in objc-mode
+(defun my-obj-c-mode-hook ()
+  (setq c-basic-offset 2))
+(add-hook 'objc-mode-hook 'my-obj-c-mode-hook)
 
 ;; ;; Clojure stuff
 ;; (add-hook 'clojure-mode-hook #'subword-mode)
@@ -182,17 +182,17 @@
 ;; ;; ace-jump mode
 ;; (define-key global-map (kbd "<C-return>") 'ace-jump-mode)
 
-;; ;; ido stuff
-;; (ido-mode 1)
-;; (setq ido-everywhere t)
-;; (require 'icomplete)
-;; (icomplete-mode 1)
-;; (smex-initialize) ; Can be omitted. This might cause a (minimal) delay
-;;                   ; when Smex is auto-initialized on its first run.
-;; (global-set-key (kbd "M-x") 'smex)
-;; (global-set-key (kbd "M-X") 'smex-major-mode-commands)
-;; ;; This is your old M-x.
-;; (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
+;; ido stuff
+(ido-mode 1)
+(setq ido-everywhere t)
+(require 'icomplete)
+(icomplete-mode 1)
+(smex-initialize) ; Can be omitted. This might cause a (minimal) delay
+                  ; when Smex is auto-initialized on its first run.
+(global-set-key (kbd "M-x") 'smex)
+(global-set-key (kbd "M-X") 'smex-major-mode-commands)
+;; This is your old M-x.
+(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
 
 ;; ;; Rust stuff
 ;; (add-hook 'rust-mode-hook 'cargo-minor-mode)
