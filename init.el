@@ -18,6 +18,7 @@
 (let ((default-directory "/usr/local/share/emacs/site-lisp/"))
   (normal-top-level-add-subdirs-to-load-path))
 
+(straight-use-package 'aggressive-indent)
 (straight-use-package 'better-defaults)
 (straight-use-package 'cider)
 (straight-use-package 'clojure-mode)
