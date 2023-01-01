@@ -33,18 +33,7 @@
 (straight-use-package 'whitespace)
 (straight-use-package 'yaml-mode)
 
-;; ;; (defvar my-packages
-;; ;;   '(aggressive-indent better-defaults cider clojure-mode dart-mode
-;; ;;                       dockerfile-mode exec-path-from-shell
-;; ;;                       graphql-mode
-;; ;;                       ;; idle-highlight-mode ; Loaded manually to control ver
-;; ;;                       inf-clojure
-;; ;;                       magit markdown-mode paredit php-mode
-;; ;;                       rainbow-delimiters smex swift-mode switch-window
-;; ;;                       use-package whitespace yaml-mode)
-
-;; "A list of packages to ensure are installed at launch.")
-(load "idle-highlight-mode")
+(load "idle-highlight-mode") ; Manually installed in my-lisp to control version
 
 (require 'better-defaults)
 
@@ -139,11 +128,6 @@
 (add-hook 'clojure-mode-hook #'aggressive-indent-mode)
 (add-hook 'clojurescript-mode-hook 'paredit-mode)
 
-;; ;; inf-clojure stuff
-;; (add-hook 'clojure-mode-hook #'inf-clojure-minor-mode)
-;; (add-hook 'inf-clojure-minor-mode-hook #'subword-mode)
-;; (add-hook 'inf-clojure-minor-mode-hook #'paredit-mode)
-
 ;; Cider stuff
 (require 'cider)
 (add-hook 'cider-mode-hook #'eldoc-mode)
@@ -153,8 +137,8 @@
 (setq nrepl-log-messages nil)
 (setq cider-prompt-save-file-on-load nil)
 (setq nrepl-prompt-to-kill-server-buffer-on-quit nil)
-;; (setq cider-inject-dependencies-at-jack-in nil)
-(setq cider-clojure-cli-aliases "-M:clj:dev:test:ci")
+(setq cider-inject-dependencies-at-jack-in nil)
+;;(setq cider-clojure-cli-aliases "-M:clj:dev:test:ci")
 (setq nrepl-use-ssh-fallback-for-remote-hosts t)
 (add-hook 'cider-repl-mode-hook 'subword-mode)
 (add-hook 'cider-repl-mode-hook 'paredit-mode)
@@ -171,7 +155,6 @@
 ;; switch-window.el
 (global-set-key (kbd "C-x o") 'switch-window)
 
-
 ;; ido stuff
 (ido-mode 1)
 (setq ido-everywhere t)
@@ -183,52 +166,3 @@
 (global-set-key (kbd "M-X") 'smex-major-mode-commands)
 ;; This is your old M-x.
 (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
-
-;; ;;;; Manually-managed packages ;;;;;;
-
-;; ;; Stuff that needs to happen after packages are initialized
-
-;; (when (memq window-system '(mac ns x))
-;;   (setq exec-path-from-shell-variables
-;;         '("DATOMIC_APP_INFO_MAP"
-;;           "DATOMIC_ENV_MAP"
-;;           "ES_PASSWORD"
-;;           "ES_RECIPES_INDEX"
-;;           "ES_URL"
-;;           "ES_USER"
-;;           "ES_USERS_INDEX"
-;;           "FARBETTER_SERVER_ENV_ID"
-;;           "FARBETTER_SERVER_LOG_LEVEL"
-;;           "FARBETTER_SERVER_LOG_PATH"
-;;           "FARBETTER_SERVER_PORT"
-;;           "FARBETTER_SERVER_SOAP_LOG_PATH"
-;;           "TRAVELPORT_AGENCY_PROFILE_ID"
-;;           "TRAVELPORT_AIR_TICKETING_TTL_MINS"
-;;           "TRAVELPORT_ALLOW_BOOKING"
-;;           "TRAVELPORT_AUTHORIZED_BY"
-;;           "TRAVELPORT_NUM_DAS"
-;;           "TRAVELPORT_ORIGIN_APPLICATION"
-;;           "TRAVELPORT_PASSWORD"
-;;           "TRAVELPORT_PCC_TZ_ID""TRAVELPORT_PROVIDER"
-;;           "TRAVELPORT_REMOTE_HOST"
-;;           "TRAVELPORT_TARGET_BRANCH"
-;;           "TRAVELPORT_USERNAME"))
-;;   (exec-path-from-shell-initialize))
-
-
-;; ;; Turn off magit warning message
-;; (setq magit-last-seen-setup-instructions "1.4.0")
-;; (custom-set-variables
-;;  ;; custom-set-variables was added by Custom.
-;;  ;; If you edit it by hand, you could mess it up, so be careful.
-;;  ;; Your init file should contain only one such instance.
-;;  ;; If there is more than one, they won't work right.
-;;  '(package-selected-packages
-;;    (quote
-;;     (yaml-mode switch-window swift-mode spinner smex sesman rainbow-delimiters queue pkg-info php-mode parseedn paredit markdown-mode magit idle-highlight-mode graphql-mode exec-path-from-shell dockerfile-mode clojure-mode better-defaults aggressive-indent))))
-;; (custom-set-faces
-;;  ;; custom-set-faces was added by Custom.
-;;  ;; If you edit it by hand, you could mess it up, so be careful.
-;;  ;; Your init file should contain only one such instance.
-;;  ;; If there is more than one, they won't work right.
-;;  )
