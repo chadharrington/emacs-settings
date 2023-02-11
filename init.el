@@ -13,10 +13,6 @@
 
 (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
 
-;; Add homebrew-installed packages to load-path
-(let ((default-directory "/usr/local/share/emacs/site-lisp/"))
-  (normal-top-level-add-subdirs-to-load-path))
-
 (straight-use-package 'aggressive-indent)
 (straight-use-package 'better-defaults)
 (straight-use-package 'cider)
