@@ -9,6 +9,7 @@
  ("emacsmirror-mirror" . "5a014232b0553b429b01cdb3551a6692c1ee0903")
  ("exec-path-from-shell" . "ddd24dc823de9a94435b4d8ea7569161657f31e2")
  ("gnu-elpa-mirror" . "eb1199591ec3cb8a4d1f1a20bd14ca0e52eafdd0")
+ ("idle-highlight-mode" . "f71e57554071a398dbc0e2d48a71908cf13541b4") ; Do not change
  ("magit" . "8fd16d34068c54c1a0a6edcdccf60be1075a6915")
  ("map" . "361f23dd3c6ae6788685471b9fb4a70e7a9351b6")
  ("markdown-mode" . "d95107f5b77d6c010e89259e05adfcd79a21f26a")

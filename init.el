@@ -12,7 +12,6 @@
   (load bootstrap-file nil 'nomessage))
 
 (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
-(add-to-list 'load-path "~/.emacs.d/my-lisp/")
 
 ;; Add homebrew-installed packages to load-path
 (let ((default-directory "/usr/local/share/emacs/site-lisp/"))
@@ -34,7 +33,9 @@
 (straight-use-package 'whitespace)
 (straight-use-package 'yaml-mode)
 
-(load "idle-highlight-mode") ; Manually installed in my-lisp to control version
+;; Specify the repo so we can control the version in default.el
+(straight-use-package
+ '(idle-highlight-mode :type git :host codeberg :repo "ideasman42/emacs-idle-highlight-mode"))
 
 (require 'better-defaults)
 
