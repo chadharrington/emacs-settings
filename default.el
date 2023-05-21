@@ -1,6 +1,6 @@
 (("aggressive-indent-mode" . "f376cdc25de5c0f8c330f1e053557d95ca47a540")
  ("better-defaults" . "91dfa5706fe3c5b4e5a94571cf50c06f99c19588")
- ("cider" . "02ca53021682f426323dc7bb4e6b28e6c8f5eb30")
+ ("cider" . "f39e0b52014913f5acc1dc28ad94c68385c0834")
  ("clojure-mode" . "b7d08b87f6a116ff47b33ee857926b60c66c3ab7")
  ("compat" . "7ca7d300d1d256f674f83932d2918d8e70cd28f6")
  ("dash.el" . "3df46d7d9fe74f52a661565888e4d31fd760f0df")
