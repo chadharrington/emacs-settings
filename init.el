@@ -135,7 +135,7 @@
 (setq nrepl-log-messages nil)
 (setq cider-prompt-save-file-on-load nil)
 (setq nrepl-prompt-to-kill-server-buffer-on-quit nil)
-(setq cider-inject-dependencies-at-jack-in nil)
+;;(setq cider-inject-dependencies-at-jack-in nil)
 ;;(setq cider-clojure-cli-aliases "-M:clj:dev:test:ci")
 (setq nrepl-use-ssh-fallback-for-remote-hosts t)
 (add-hook 'cider-repl-mode-hook 'subword-mode)
